@@ -1,0 +1,950 @@
+<rdf:RDF
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+ xmlns:z="http://www.zotero.org/namespaces/export#"
+ xmlns:dc="http://purl.org/dc/elements/1.1/"
+ xmlns:foaf="http://xmlns.com/foaf/0.1/"
+ xmlns:bib="http://purl.org/net/biblio#"
+ xmlns:dcterms="http://purl.org/dc/terms/"
+ xmlns:vcard="http://nwalsh.com/rdf/vCard#"
+ xmlns:prism="http://prismstandard.org/namespaces/1.2/basic/"
+ xmlns:link="http://purl.org/rss/1.0/modules/link/">
+    <bib:Book rdf:about="urn:isbn:978-3-642-49888-6">
+        <z:itemType>book</z:itemType>
+        <dc:publisher>
+            <foaf:Organization>
+               <foaf:name>Springer-Verlag</foaf:name>
+            </foaf:Organization>
+        </dc:publisher>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Kolmogorov</foaf:surname>
+                        <foaf:givenname>Andrey Nikolaevich</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:subject>Mathematics / Applied</dc:subject>
+        <dc:subject>Mathematics / General</dc:subject>
+        <dc:identifier>ISBN 978-3-642-49888-6</dc:identifier>
+        <dc:date>1933</dc:date>
+        <dc:description>Citation Key: kolmogorov_grundbegriffe_1933</dc:description>
+        <dcterms:dateSubmitted>2018-09-10</dcterms:dateSubmitted>
+        <z:language>de</z:language>
+        <dcterms:abstract>Dieser Buchtitel ist Teil des Digitalisierungsprojekts Springer Book Archives mit Publikationen, die seit den Anfängen des Verlags von 1842 erschienen sind. Der Verlag stellt mit diesem Archiv Quellen für die historische wie auch die disziplingeschichtliche Forschung zur Verfügung, die jeweils im historischen Kontext betrachtet werden müssen. Dieser Titel erschien in der Zeit vor 1945 und wird daher in seiner zeittypischen politisch-ideologischen Ausrichtung vom Verlag nicht beworben.</dcterms:abstract>
+        <dc:title>Grundbegriffe der Wahrscheinlichkeitsrechnung</dc:title>
+    </bib:Book>
+    <bib:BookSection rdf:about="urn:isbn:978-0-521-78451-1">
+        <z:itemType>bookSection</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Book>
+                <dc:identifier>ISBN 978-0-521-78451-1</dc:identifier>
+                <dc:title>Introduction to Lattices and Order</dc:title>
+            </bib:Book>
+        </dcterms:isPartOf>
+        <dc:publisher>
+            <foaf:Organization>
+                <vcard:adr>
+                    <vcard:Address>
+                        <vcard:locality>Cambridge, UK ; New York, NY</vcard:locality>
+                    </vcard:Address>
+                </vcard:adr>
+                <foaf:name>Cambridge University Press</foaf:name>
+            </foaf:Organization>
+        </dc:publisher>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Davey</foaf:surname>
+                        <foaf:givenname>Brian A.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Priestley</foaf:surname>
+                        <foaf:givenname>Hilary A.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:subject>Lattice theory</dc:subject>
+        <prism:edition>2nd ed</prism:edition>
+        <bib:pages>94</bib:pages>
+        <dc:date>2002</dc:date>
+        <dc:description>Citation Key: davey_4.16_2002 
+bibtex[lccn=QA171.5 .D38 2002]</dc:description>
+        <z:language>English</z:language>
+        <dc:title>§4.16 Boolean Algebras</dc:title>
+    </bib:BookSection>
+    <bib:BookSection rdf:about="#item_4">
+        <z:itemType>bookSection</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Book>
+                <dc:title>An Investigation of the Laws of Thought: On Which Are Founded the Mathematical Theories of Logic and Probabilities</dc:title>
+            </bib:Book>
+        </dcterms:isPartOf>
+        <dc:publisher>
+            <foaf:Organization>
+               <foaf:name>Walton and Maberly</foaf:name>
+            </foaf:Organization>
+        </dc:publisher>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Boole</foaf:surname>
+                        <foaf:givenname>George</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <bib:pages>243-252</bib:pages>
+        <dc:date>1854</dc:date>
+        <dc:description>Google-Books-ID: SWgLVT0otY8C 
+Citation Key: boole_chapter_1854</dc:description>
+        <z:language>English</z:language>
+        <dc:title>Chapter XVI. On the Theory of Probabilities</dc:title>
+    </bib:BookSection>
+    <bib:BookSection rdf:about="#item_5">
+        <z:itemType>bookSection</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Book>
+                <dcterms:isPartOf>
+                    <bib:Series>
+                        <dc:title>Supplément</dc:title>
+                        <dc:identifier>4</dc:identifier>
+                    </bib:Series>
+                </dcterms:isPartOf>
+                <dc:title>Histoire naturelle, générale et particulière</dc:title>
+            </bib:Book>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Buffon</foaf:surname>
+                        <foaf:givenname>Georges-Louis Leclerc</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <bib:pages>46-123</bib:pages>
+        <dc:date>1777</dc:date>
+        <dc:description>Citation Key: buffon_essai_1777</dc:description>
+        <z:language>fr</z:language>
+        <dc:title>Essai D'Arithmétique Morale</dc:title>
+    </bib:BookSection>
+    <bib:Manuscript rdf:about="#item_6">
+        <z:itemType>manuscript</z:itemType>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Harrison</foaf:surname>
+                        <foaf:givenname>John</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:date>2017-01</dc:date>
+        <dc:description>Citation Key: harrison_hol_2017</dc:description>
+        <z:language>English</z:language>
+        <dcterms:abstract>The HOL Light theorem prover can be difficult to get started with. While the manual is fairly detailed and comprehensive, the large amount of background information that has to be absorbed before the user can do anything interesting is intimidating. Here we give an alternative `quick start' guide, aimed at teaching basic use of the system quickly by means of a graded set of examples. Some readers may find it easier to absorb; those who do not are referred after all to the standard manual.</dcterms:abstract>
+        <dc:title>HOL Light Tutorial</dc:title>
+    </bib:Manuscript>
+    <bib:Book rdf:about="urn:isbn:978-3-540-43376-7">
+        <z:itemType>book</z:itemType>
+        <dc:publisher>
+            <foaf:Organization>
+               <foaf:name>Springer Science &amp; Business Media</foaf:name>
+            </foaf:Organization>
+        </dc:publisher>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Nipkow</foaf:surname>
+                        <foaf:givenname>Tobias</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Paulson</foaf:surname>
+                        <foaf:givenname>Lawrence C.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Wenzel</foaf:surname>
+                        <foaf:givenname>Markus</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:subject>Computers / Computer Science</dc:subject>
+        <dc:subject>Computers / Information Technology</dc:subject>
+        <dc:subject>Computers / Intelligence (AI) \&amp; Semantics</dc:subject>
+        <dc:subject>Computers / Programming / General</dc:subject>
+        <dc:subject>Computers / Programming Languages / General</dc:subject>
+        <dc:subject>Mathematics / Discrete Mathematics</dc:subject>
+        <dc:subject>Mathematics / Logic</dc:subject>
+        <dc:subject>Philosophy / Logic</dc:subject>
+        <dc:identifier>ISBN 978-3-540-43376-7</dc:identifier>
+        <dc:date>2002-04</dc:date>
+        <dc:description>Citation Key: nipkow_isabelle/hol:_2002</dc:description>
+        <z:language>English</z:language>
+        <dcterms:abstract>This volume is a self-contained introduction to interactive proof in high- order logic (HOL), using the proof assistant Isabelle 2002. Compared with existing Isabelle documentation, it provides a direct route into higher-order logic, which most people prefer these days. It bypasses ?rst-order logic and minimizes discussion of meta-theory. It is written for potential users rather than for our colleagues in the research world. Another departure from previous documentation is that we describe Markus Wenzel's proof script notation instead of ML tactic scripts. The l- ter make it easier to introduce new tactics on the ?y, but hardly anybody does that. Wenzel's dedicated syntax is elegant, replacing for example eight simpli?cation tactics with a single method, namely simp, with associated - tions. The book has three parts. – The ?rst part, Elementary Techniques, shows how to model functional programs in higher-order logic. Early examples involve lists and the natural numbers. Most proofs are two steps long, consisting of induction on a chosen variable followed by the auto tactic. But even this elementary part covers such advanced topics as nested and mutual recursion. – The second part, Logic and Sets, presents a collection of lower-level tactics that you can use to apply rules selectively. It also describes I- belle/HOL's treatment of sets, functions, and relations and explains how to de?ne sets inductively. One of the examples concerns the theory of model checking, and another is drawn from a classic textbook on formal languages.</dcterms:abstract>
+        <dc:title>Isabelle/HOL: A Proof Assistant for Higher-Order Logic</dc:title>
+        <z:shortTitle>Isabelle/HOL</z:shortTitle>
+    </bib:Book>
+    <bib:Book rdf:about="urn:isbn:978-0-387-98403-2">
+        <z:itemType>book</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Series>
+               <dc:title>Graduate Texts in Mathematics</dc:title>
+            </bib:Series>
+        </dcterms:isPartOf>
+        <dc:publisher>
+            <foaf:Organization>
+                <vcard:adr>
+                    <vcard:Address>
+                       <vcard:locality>New York</vcard:locality>
+                    </vcard:Address>
+                </vcard:adr>
+                <foaf:name>Springer-Verlag</foaf:name>
+            </foaf:Organization>
+        </dc:publisher>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>MacLane</foaf:surname>
+                        <foaf:givenname>Saunders</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <prism:edition>2</prism:edition>
+        <dc:identifier>ISBN 978-0-387-98403-2</dc:identifier>
+        <dc:date>1978</dc:date>
+        <dc:description>Citation Key: maclane_categories_1978</dc:description>
+        <dcterms:dateSubmitted>2018-09-19</dcterms:dateSubmitted>
+        <z:language>English</z:language>
+        <dcterms:abstract>Categories for the Working Mathematician provides an array of general ideas useful in a wide variety of fields. Starting from the foundations, this book illuminates the concepts of category, functor, natural transformation, and duality. The book then turns to adjoint functors, which provide a description of universal constructions, an analysis of the representations of functors by sets of morphisms, and a means of manipulating direct and inverse limits. These categorical concepts are extensively illustrated in the remaining chapters, which include many applications of the basic existence theorem for adjoint functors. The categories of algebraic systems are constructed from certain adjoint-like data and characterized by Beck's theorem. After considering a variety of applications, the book continues with the construction and exploitation of Kan extensions. This second edition includes a number of revisions and additions, including two new chapters on topics of active interest. One is on symmetric monoidal categories and braided monoidal categories and the coherence theorems for them. The second describes 2-categories and the higher dimensional categories which have recently come into prominence. The bibliography has also been expanded to cover some of the many other recent advances concerning categories.</dcterms:abstract>
+        <dc:title>Categories for the Working Mathematician</dc:title>
+    </bib:Book>
+    <bib:BookSection rdf:about="#item_9">
+        <z:itemType>bookSection</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Book>
+               <dc:title>Histoire de l'Académie royale des sciences</dc:title>
+            </bib:Book>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Buffon</foaf:surname>
+                        <foaf:givenname>Georges-Louis Leclerc</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <bib:pages>43-45</bib:pages>
+        <dc:date>1733</dc:date>
+        <dc:description>Citation Key: buffon_editors_1733</dc:description>
+        <z:language>fr</z:language>
+        <dc:title>Editor's note concerning a lecture given in 1733 by Mr. Le Clerc de Buffon to the Royal Academy of Sciences in Paris</dc:title>
+    </bib:BookSection>
+    <bib:Article rdf:about="#item_10">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf rdf:resource="urn:issn:0304-4149"/>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Harrison</foaf:surname>
+                        <foaf:givenname>J. Michael</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Pliska</foaf:surname>
+                        <foaf:givenname>Stanley R.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:subject>Contingent claim valuation</dc:subject>
+        <dc:subject>continous trading</dc:subject>
+        <dc:subject>diffusion processes</dc:subject>
+        <dc:subject>option pricing</dc:subject>
+        <dc:subject>representation of martingales</dc:subject>
+        <dc:subject>semimartingales</dc:subject>
+        <dc:subject>stochastic integrals</dc:subject>
+        <bib:pages>215-260</bib:pages>
+        <dc:date>1981-08</dc:date>
+        <dc:description>Citation Key: harrison_martingales_1981-1</dc:description>
+        <dcterms:abstract>This paper develops a general stochastic model of a frictionless security market with continuous trading. The vector price process is given by a semimartingale of a certain class, and the general stochastic integral is used to represent capital gains. Within the framework of this model, we discuss the modern theory of contingent claim valuation, including the celebrated option pricing formula of Black and Scholes. It is shown that the security market is complete if and only if its vector price process has a certain martingale representation property. A multidimensional generalization of the Black-Scholes model is examined in some detail, and some other examples are discussed briefly.</dcterms:abstract>
+        <dc:title>Martingales and Stochastic Integrals in the Theory of Continuous Trading</dc:title>
+    </bib:Article>
+    <bib:Journal rdf:about="urn:issn:0304-4149">
+        <prism:volume>11</prism:volume>
+        <prism:number>3</prism:number>
+        <dc:title>Stochastic Processes and their Applications</dc:title>
+        <dc:identifier>ISSN 0304-4149</dc:identifier>
+        <dc:identifier>DOI 10.1016/0304-4149(81)90026-0</dc:identifier>
+    </bib:Journal>
+    <bib:Article rdf:about="#item_11">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf rdf:resource="urn:issn:1432-1807"/>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Delbaen</foaf:surname>
+                        <foaf:givenname>Freddy</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Schachermayer</foaf:surname>
+                        <foaf:givenname>Walter</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:subject>Asset Price</dc:subject>
+        <dc:subject>Fundamental Theorem</dc:subject>
+        <dc:subject>General Version</dc:subject>
+        <bib:pages>463-520</bib:pages>
+        <dc:date>1994-09</dc:date>
+        <dc:description>Citation Key: delbaen_general_1994-1</dc:description>
+        <z:language>English</z:language>
+        <dc:title>A General Version of the Fundamental Theorem of Asset Pricing</dc:title>
+    </bib:Article>
+    <bib:Journal rdf:about="urn:issn:1432-1807">
+        <prism:volume>300</prism:volume>
+        <prism:number>1</prism:number>
+        <dc:title>Mathematische Annalen</dc:title>
+        <dc:identifier>ISSN 1432-1807</dc:identifier>
+        <dc:identifier>DOI 10.1007/BF01450498</dc:identifier>
+    </bib:Journal>
+    <bib:Book rdf:about="#item_12">
+        <z:itemType>book</z:itemType>
+        <dc:publisher>
+            <foaf:Organization>
+                <vcard:adr>
+                    <vcard:Address>
+                        <vcard:locality>Cambridge, UK ; New York, NY</vcard:locality>
+                    </vcard:Address>
+                </vcard:adr>
+                <foaf:name>Cambridge University Press</foaf:name>
+            </foaf:Organization>
+        </dc:publisher>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Davey</foaf:surname>
+                        <foaf:givenname>B. A.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Priestley</foaf:surname>
+                        <foaf:givenname>H. A.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:subject>Lattice theory</dc:subject>
+        <prism:edition>2nd ed</prism:edition>
+        <dc:identifier>ISBN 978-0-521-78451-1</dc:identifier>
+        <dc:date>2002</dc:date>
+        <dc:description>Citation Key: davey_introduction_2002 
+bibtex[lccn=QA171.5 .D38 2002]</dc:description>
+        <dc:title>Introduction to Lattices and Order</dc:title>
+    </bib:Book>
+    <bib:Article rdf:about="#item_13">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf rdf:resource="urn:issn:2150-914x"/>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Eberl</foaf:surname>
+                        <foaf:givenname>Manuel</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:date>2017-06</dc:date>
+        <dc:description>\url{http://isa-afp.org/entries/Buffons_Needle.html} 
+Citation Key: eberl_buffons_2017</dc:description>
+        <dc:title>Buffon's Needle Problem</dc:title>
+    </bib:Article>
+    <bib:Journal rdf:about="urn:issn:2150-914x">
+        <dc:title>Archive of Formal Proofs</dc:title>
+        <dc:identifier>ISSN 2150-914x</dc:identifier>
+    </bib:Journal>
+    <bib:BookSection rdf:about="urn:isbn:978-0-08-012975-4">
+        <z:itemType>bookSection</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Book>
+                <dc:identifier>ISBN 978-0-08-012975-4</dc:identifier>
+                <dc:title>Computational Problems in Abstract Algebra</dc:title>
+            </bib:Book>
+        </dcterms:isPartOf>
+        <dc:publisher>
+           <foaf:Organization><foaf:name>Pergamon</foaf:name></foaf:Organization>
+        </dc:publisher>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Knuth</foaf:surname>
+                        <foaf:givenname>Donald E.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Bendix</foaf:surname>
+                        <foaf:givenname>Peter B.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <bib:editors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Leech</foaf:surname>
+                        <foaf:givenname>John</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:editors>
+        <bib:pages>263-297</bib:pages>
+        <dc:date>1970-01</dc:date>
+        <dc:description>Citation Key: knuth_simple_1970 
+DOI: 10.1016/B978-0-08-012975-4.50028-X</dc:description>
+        <dc:title>Simple Word Problems in Universal Algebras††The Work Reported in This Paper Was Supported in Part by the U.S. Office of Naval Research.</dc:title>
+    </bib:BookSection>
+    <bib:Report rdf:about="#item_15">
+        <z:itemType>report</z:itemType>
+        <dc:publisher>
+            <foaf:Organization>
+                <vcard:adr>
+                    <vcard:Address>
+                       <vcard:locality>Ithaca, NY, USA</vcard:locality>
+                    </vcard:Address>
+                </vcard:adr>
+                <foaf:name>Cornell University</foaf:name>
+            </foaf:Organization>
+        </dc:publisher>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Fortune</foaf:surname>
+                        <foaf:givenname>Steven</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:date>1978</dc:date>
+        <dc:description>Citation Key: fortune_note_1978</dc:description>
+        <dcterms:abstract>Hartmanis and Berman have conjectured that all NP-complete sets are polynomial time isomorphic. A consequence of the conjecture is that there are no sparse NP-complete sets. We show that the existence of an NP-complete set whose complement is sparse implies P = NP. We also show that if there is a polynomial time reduction with sparse range to a PTAPE-complete set, then P=PTAPE. Keywords: reduction, polynomial time, nondeterministic polynomial time, complete sets, sparsity.</dcterms:abstract>
+        <dc:title>A Note on the Sparse Complete Sets</dc:title>
+    </bib:Report>
+    <bib:Book rdf:about="urn:isbn:978-0-201-44124-6">
+        <z:itemType>book</z:itemType>
+        <dc:publisher>
+            <foaf:Organization>
+                <vcard:adr>
+                    <vcard:Address>
+                       <vcard:locality>Boston</vcard:locality>
+                    </vcard:Address>
+                </vcard:adr>
+                <foaf:name>Addison-Wesley</foaf:name>
+            </foaf:Organization>
+        </dc:publisher>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Hopcroft</foaf:surname>
+                        <foaf:givenname>John E.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Motwani</foaf:surname>
+                        <foaf:givenname>Rajeev</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Ullman</foaf:surname>
+                        <foaf:givenname>Jeffrey D.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:subject>Computational complexity</dc:subject>
+        <dc:subject>Formal languages</dc:subject>
+        <dc:subject>Machine theory</dc:subject>
+        <prism:edition>2nd ed</prism:edition>
+        <dc:identifier>ISBN 978-0-201-44124-6</dc:identifier>
+        <dc:date>2001</dc:date>
+        <dc:description>Citation Key: hopcroft_introduction_2001 
+bibtex[lccn=QA267 .H56 2001]</dc:description>
+        <dc:title>Introduction to Automata Theory, Languages, and Computation</dc:title>
+    </bib:Book>
+    <bib:Article rdf:about="#item_17">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Journal>
+                <prism:volume>Part II</prism:volume>
+                <dc:title>Studies in Mathematics and Mathematical Logic</dc:title>
+            </bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Tseitin</foaf:surname>
+                        <foaf:givenname>GS</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <bib:pages>115-125</bib:pages>
+        <dc:date>1968</dc:date>
+        <dc:description>Citation Key: tseitin_complexity_1968</dc:description>
+        <dc:title>On the Complexity of Derivations in the Propositional Calculus</dc:title>
+    </bib:Article>
+    <bib:Article rdf:about="#item_18">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Journal>
+                <prism:volume>13</prism:volume>
+                <prism:number>11</prism:number>
+                <dc:title>Entropy</dc:title>
+                <dc:identifier>DOI 10.3390/e13111945</dc:identifier>
+            </bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Baez</foaf:surname>
+                        <foaf:givenname>John C.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Fritz</foaf:surname>
+                        <foaf:givenname>Tobias</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Leinster</foaf:surname>
+                        <foaf:givenname>Tom</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Baez</foaf:surname>
+                        <foaf:givenname>John C.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Fritz</foaf:surname>
+                        <foaf:givenname>Tobias</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Leinster</foaf:surname>
+                        <foaf:givenname>Tom</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:subject>information theory</dc:subject>
+        <dc:subject>measure-preserving function</dc:subject>
+        <dc:subject>Shannon entropy</dc:subject>
+        <dc:subject>Tsallis entropy</dc:subject>
+        <bib:pages>1945-1957</bib:pages>
+        <dc:date>2011-11</dc:date>
+        <dc:description>Citation Key: baez_characterization_2011 
+bibtex[copyright=http://creativecommons.org/licenses/by/3.0/]</dc:description>
+        <dcterms:dateSubmitted>2018-09-25</dcterms:dateSubmitted>
+        <z:language>English</z:language>
+        <dcterms:abstract>There are numerous characterizations of Shannon entropy and Tsallis entropy as measures of information obeying certain properties. Using work by Faddeev and Furuichi, we derive a very simple characterization. Instead of focusing on the entropy of a probability measure on a finite set, this characterization focuses on the “information loss”, or change in entropy, associated with a measure-preserving function. Information loss is a special case of conditional entropy: namely, it is the entropy of a random variable conditioned on some function of that variable. We show that Shannon entropy gives the only concept of information loss that is functorial, convex-linear and continuous. This characterization naturally generalizes to Tsallis entropy as well.</dcterms:abstract>
+        <dc:title>A Characterization of Entropy in Terms of Information Loss</dc:title>
+    </bib:Article>
+    <bib:Article rdf:about="http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=6772729">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf rdf:resource="urn:issn:00058580"/>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Hamming</foaf:surname>
+                        <foaf:givenname>R. W.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <link:link rdf:resource="#item_21"/>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=6772729</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <bib:pages>147-160</bib:pages>
+        <dc:date>04/1950</dc:date>
+        <dcterms:dateSubmitted>2019-02-16 14:48:00</dcterms:dateSubmitted>
+        <z:language>en</z:language>
+        <dc:title>Error Detecting and Error Correcting Codes</dc:title>
+    </bib:Article>
+    <bib:Journal rdf:about="urn:issn:00058580">
+        <prism:volume>29</prism:volume>
+        <prism:number>2</prism:number>
+        <dc:title>Bell System Technical Journal</dc:title>
+        <dc:identifier>ISSN 00058580</dc:identifier>
+        <dc:identifier>DOI 10.1002/j.1538-7305.1950.tb00463.x</dc:identifier>
+    </bib:Journal>
+    <z:Attachment rdf:about="#item_21">
+        <z:itemType>attachment</z:itemType>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://calhoun.nps.edu/bitstream/10945/46756/1/Hamming_1982.pdf</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2019-02-16 14:48:09</dcterms:dateSubmitted>
+        <dc:title>Full Text</dc:title>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+    </z:Attachment>
+    <bib:Article rdf:about="http://doi.acm.org/10.1145/279227.279229">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf rdf:resource="urn:issn:0734-2071"/>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Lamport</foaf:surname>
+                        <foaf:givenname>Leslie</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:subject>state machines</dc:subject>
+        <dc:subject>three-phase commit</dc:subject>
+        <dc:subject>voting</dc:subject>
+        <dc:identifier>
+            <dcterms:URI>
+               <rdf:value>http://doi.acm.org/10.1145/279227.279229</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <bib:pages>133–169</bib:pages>
+        <dc:date>May 1998</dc:date>
+        <dcterms:dateSubmitted>2019-02-16 15:31:29</dcterms:dateSubmitted>
+        <z:libraryCatalog>ACM Digital Library</z:libraryCatalog>
+        <dcterms:abstract>Recent archaeological discoveries on the island of Paxos reveal that the parliament functioned despite the peripatetic propensity of its part-time legislators. The legislators maintained consistent copies of the parliamentary record, despite their frequent forays from the chamber and the forgetfulness of their messengers. The Paxon parliament's protocol provides a new way of implementing the state machine approach to the design of distributed systems.</dcterms:abstract>
+        <dc:title>The Part-time Parliament</dc:title>
+    </bib:Article>
+    <bib:Journal rdf:about="urn:issn:0734-2071">
+        <prism:volume>16</prism:volume>
+        <prism:number>2</prism:number>
+        <dc:title>ACM Trans. Comput. Syst.</dc:title>
+        <dc:identifier>ISSN 0734-2071</dc:identifier>
+        <dc:identifier>DOI 10.1145/279227.279229</dc:identifier>
+    </bib:Journal>
+    <bib:Patent rdf:about="https://patents.google.com/patent/US2950048/en">
+        <z:itemType>patent</z:itemType>
+        <z:inventors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Luhn</foaf:surname>
+                        <foaf:givenname>H. P.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </z:inventors>
+        <dcterms:isReferencedBy rdf:resource="#item_24"/>
+        <link:link rdf:resource="#item_25"/>
+        <dc:subject>
+           <z:AutomaticTag><rdf:value>belt</rdf:value></z:AutomaticTag>
+        </dc:subject>
+        <dc:subject>
+           <z:AutomaticTag><rdf:value>check</rdf:value></z:AutomaticTag>
+        </dc:subject>
+        <dc:subject>
+           <z:AutomaticTag><rdf:value>digit</rdf:value></z:AutomaticTag>
+        </dc:subject>
+        <dc:subject>
+           <z:AutomaticTag><rdf:value>digits</rdf:value></z:AutomaticTag>
+        </dc:subject>
+        <dc:subject>
+           <z:AutomaticTag><rdf:value>number</rdf:value></z:AutomaticTag>
+        </dc:subject>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://patents.google.com/patent/US2950048/en</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2019-02-16 15:32:35</dcterms:dateSubmitted>
+        <prism:number>US2950048A</prism:number>
+        <dc:date>1960-08-23</dc:date>
+        <z:country>US</z:country>
+        <dc:title>Computer for verifying numbers</dc:title>
+        <z:issuingAuthority>United States</z:issuingAuthority>
+    </bib:Patent>
+    <bib:Memo rdf:about="#item_24">
+        <rdf:value>&lt;h2&gt;Classifications&lt;/h2&gt;
+G06F11/08: Error detection or correction by redundancy in data representation, e.g. by using checking codes</rdf:value>
+    </bib:Memo>
+    <z:Attachment rdf:about="#item_25">
+        <z:itemType>attachment</z:itemType>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://patentimages.storage.googleapis.com/ec/2a/f7/b9af046ed26128/US2950048.pdf</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2019-02-16 15:32:36</dcterms:dateSubmitted>
+        <dc:title>Fulltext PDF</dc:title>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+    </z:Attachment>
+    <bib:Article rdf:about="https://onlinelibrary.wiley.com/doi/abs/10.1002/j.1538-7305.1948.tb01338.x">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf rdf:resource="urn:issn:1538-7305"/>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Shannon</foaf:surname>
+                        <foaf:givenname>C. E.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <link:link rdf:resource="#item_29"/>
+        <link:link rdf:resource="#item_28"/>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://onlinelibrary.wiley.com/doi/abs/10.1002/j.1538-7305.1948.tb01338.x</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dc:rights>© 1948 The Bell System Technical Journal</dc:rights>
+        <bib:pages>379-423</bib:pages>
+        <dc:date>1948</dc:date>
+        <dcterms:dateSubmitted>2019-02-16 21:31:02</dcterms:dateSubmitted>
+        <z:libraryCatalog>Wiley Online Library</z:libraryCatalog>
+        <z:language>en</z:language>
+        <dc:title>A Mathematical Theory of Communication</dc:title>
+    </bib:Article>
+    <bib:Journal rdf:about="urn:issn:1538-7305">
+        <prism:volume>27</prism:volume>
+        <prism:number>3</prism:number>
+        <dc:title>Bell System Technical Journal</dc:title>
+        <dc:identifier>ISSN 1538-7305</dc:identifier>
+        <dc:identifier>DOI 10.1002/j.1538-7305.1948.tb01338.x</dc:identifier>
+    </bib:Journal>
+    <z:Attachment rdf:about="#item_29">
+        <z:itemType>attachment</z:itemType>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://pure.mpg.de/pubman/item/item_2383164_3/component/file_2383163/Shannon_Weaver_1949_Mathematical.pdf</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2019-02-16 21:31:21</dcterms:dateSubmitted>
+        <dc:title>Full Text</dc:title>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+    </z:Attachment>
+    <z:Attachment rdf:about="#item_28">
+        <z:itemType>attachment</z:itemType>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://onlinelibrary.wiley.com/doi/abs/10.1002/j.1538-7305.1948.tb01338.x</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2019-02-16 21:31:10</dcterms:dateSubmitted>
+        <dc:title>Snapshot</dc:title>
+        <z:linkMode>1</z:linkMode>
+        <link:type>text/html</link:type>
+    </z:Attachment>
+    <bib:Article rdf:about="#item_30">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Journal>
+               <prism:volume>37</prism:volume><dc:title>Proc. IEEE</dc:title>
+            </bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Golay</foaf:surname>
+                        <foaf:givenname>Marcel JE</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <link:link rdf:resource="#item_31"/>
+        <bib:pages>657</bib:pages>
+        <dc:date>1949</dc:date>
+        <z:libraryCatalog>Google Scholar</z:libraryCatalog>
+        <dc:title>Notes on digital coding</dc:title>
+    </bib:Article>
+    <z:Attachment rdf:about="#item_31">
+        <z:itemType>attachment</z:itemType>
+        <dc:identifier>
+            <dcterms:URI>
+               <rdf:value>https://ci.nii.ac.jp/naid/10018343533/</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2019-02-16 21:35:28</dcterms:dateSubmitted>
+        <dc:title>Snapshot</dc:title>
+        <z:linkMode>1</z:linkMode>
+        <link:type>text/html</link:type>
+    </z:Attachment>
+    <bib:Article rdf:about="https://link.aps.org/doi/10.1103/PhysRevLett.81.2152">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Journal>
+                <prism:volume>81</prism:volume>
+                <prism:number>10</prism:number>
+                <dc:title>Physical Review Letters</dc:title>
+                <dcterms:alternative>Phys. Rev. Lett.</dcterms:alternative>
+                <dc:identifier>DOI 10.1103/PhysRevLett.81.2152</dc:identifier>
+            </bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Cory</foaf:surname>
+                        <foaf:givenname>D. G.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Price</foaf:surname>
+                        <foaf:givenname>M. D.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Maas</foaf:surname>
+                        <foaf:givenname>W.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Knill</foaf:surname>
+                        <foaf:givenname>E.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Laflamme</foaf:surname>
+                        <foaf:givenname>R.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Zurek</foaf:surname>
+                        <foaf:givenname>W. H.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Havel</foaf:surname>
+                        <foaf:givenname>T. F.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Somaroo</foaf:surname>
+                        <foaf:givenname>S. S.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <link:link rdf:resource="#item_33"/>
+        <link:link rdf:resource="#item_34"/>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://link.aps.org/doi/10.1103/PhysRevLett.81.2152</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <bib:pages>2152-2155</bib:pages>
+        <dc:date>September 7, 1998</dc:date>
+        <dcterms:dateSubmitted>2019-02-16 21:47:50</dcterms:dateSubmitted>
+        <z:libraryCatalog>APS</z:libraryCatalog>
+        <dcterms:abstract>Quantum error correction is required to compensate for the fragility of the state of a quantum computer. We report the first experimental implementations of quantum error correction and confirm the expected state stabilization. A precise analysis of the decay behavior is performed in alanine and a full implementation of the error correction procedure is realized in trichloroethylene. In NMR computing, however, a net improvement in the signal to noise would require very high polarization. The experiment implemented the three-bit code for phase errors using liquid state NMR.</dcterms:abstract>
+        <dc:title>Experimental Quantum Error Correction</dc:title>
+    </bib:Article>
+    <z:Attachment rdf:about="#item_33">
+        <z:itemType>attachment</z:itemType>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.81.2152</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2019-02-16 21:47:52</dcterms:dateSubmitted>
+        <dc:title>APS Snapshot</dc:title>
+        <z:linkMode>1</z:linkMode>
+        <link:type>text/html</link:type>
+    </z:Attachment>
+    <z:Attachment rdf:about="#item_34">
+        <z:itemType>attachment</z:itemType>
+        <dc:identifier>
+            <dcterms:URI>
+               <rdf:value>https://arxiv.org/pdf/quant-ph/9802018</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2019-02-16 21:47:54</dcterms:dateSubmitted>
+        <dc:title>Submitted Version</dc:title>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+    </z:Attachment>
+    <z:Collection rdf:about="#collection_2">
+        <dc:title>bib</dc:title>
+        <dcterms:hasPart rdf:resource="urn:isbn:978-3-642-49888-6"/>
+        <dcterms:hasPart rdf:resource="urn:isbn:978-0-521-78451-1"/>
+        <dcterms:hasPart rdf:resource="#item_4"/>
+        <dcterms:hasPart rdf:resource="#item_5"/>
+        <dcterms:hasPart rdf:resource="#item_6"/>
+        <dcterms:hasPart rdf:resource="urn:isbn:978-3-540-43376-7"/>
+        <dcterms:hasPart rdf:resource="urn:isbn:978-0-387-98403-2"/>
+        <dcterms:hasPart rdf:resource="#item_9"/>
+        <dcterms:hasPart rdf:resource="#item_10"/>
+        <dcterms:hasPart rdf:resource="#item_11"/>
+        <dcterms:hasPart rdf:resource="#item_12"/>
+        <dcterms:hasPart rdf:resource="#item_13"/>
+        <dcterms:hasPart rdf:resource="urn:isbn:978-0-08-012975-4"/>
+        <dcterms:hasPart rdf:resource="#item_15"/>
+        <dcterms:hasPart rdf:resource="urn:isbn:978-0-201-44124-6"/>
+        <dcterms:hasPart rdf:resource="#item_17"/>
+        <dcterms:hasPart rdf:resource="#item_18"/>
+        <dcterms:hasPart rdf:resource="http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=6772729"/>
+        <dcterms:hasPart rdf:resource="http://doi.acm.org/10.1145/279227.279229"/>
+        <dcterms:hasPart rdf:resource="https://patents.google.com/patent/US2950048/en"/>
+        <dcterms:hasPart rdf:resource="https://onlinelibrary.wiley.com/doi/abs/10.1002/j.1538-7305.1948.tb01338.x"/>
+        <dcterms:hasPart rdf:resource="#item_30"/>
+        <dcterms:hasPart rdf:resource="https://link.aps.org/doi/10.1103/PhysRevLett.81.2152"/>
+    </z:Collection>
+</rdf:RDF>

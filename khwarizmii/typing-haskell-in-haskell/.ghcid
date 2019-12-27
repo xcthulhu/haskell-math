@@ -1,0 +1,1 @@
+--command="ghci -pgmL markdown-unlit TypingHaskellInHaskell.lhs"
