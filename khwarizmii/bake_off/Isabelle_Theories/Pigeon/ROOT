@@ -1,0 +1,8 @@
+session Pigeon = HOL +
+  options [document = pdf, document_output = "output"]
+  theories [document = false]
+    "~~/src/HOL/Library/Permutation"
+  theories
+    Pigeon
+  document_files
+    "root.tex"

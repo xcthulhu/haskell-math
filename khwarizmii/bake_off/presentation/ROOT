@@ -1,0 +1,9 @@
+session "LaTeX_Snippets" = "HOL" +
+   options [document = "pdf",
+            document_output = "generated",
+            show_question_marks = false]
+   theories
+    "../Isabelle_Theories/Pigeon/Pigeon_Snippets"
+    "../Isabelle_Theories/Pigeon/Sugary_Pigeon_Snippets"
+   document_files
+     build

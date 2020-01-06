@@ -1,0 +1,1045 @@
+% -*- mode: latex-mode; -*-
+
+\documentclass{beamer}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Source: https://github.com/pblottiere/dark-beamer-theme %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usetheme{dbt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% https://tex.stackexchange.com/a/74127 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{tcolorbox}
+
+\tcbset{%
+  colback=black!95,%
+  colupper=white,%
+  colframe=white!40!black,%
+  sharp corners%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Source: https://isabelle.in.tum.de/community/Generate_TeX_Snippets %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{generated/document/comment}%
+\usepackage{generated/document/isabelle}%
+\usepackage{generated/document/isabellesym}%
+\usepackage{generated/document/isabelletags}%
+\usepackage{ifthen}%
+
+\newcommand{\DefineSnippet}[2]{%
+  \expandafter\newcommand\csname snippet--#1\endcsname{ \kern-1ex #2
+    \kern-1.5ex }}
+
+\newcommand{\Snippet}[1]{%
+  \ifcsname snippet--#1\endcsname {\csname snippet--#1\endcsname}
+  \else +++++++ERROR: Snippet ``#1'' not defined+++++++ \fi}
+
+\input{generated/snippets}
+
+% https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/Isabelle2017/doc/sugar.pdf
+\usepackage{mathpartir}
+
+%%%%%%%%
+% Main %
+%%%%%%%%
+
+\title{Theorem Proving in Isabelle/HOL} \author{Matthew Doty} \date{}
+
+\begin{document}
+
+{\setbeamertemplate{footline}{} \frame{\titlepage}}
+
+\section*{Outline}%
+\begin{frame}[shrink=35]{\insertsectionhead}%
+  \ \
+  \tableofcontents %
+\end{frame}
+
+\section{History}
+\begin{frame}[plain]
+  \vfill \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+    \usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+\end{frame}
+
+
+\subsection{Logical Foundations}
+\begin{frame}[allowframebreaks]{\insertsectionhead\ \textemdash\
+    \insertsubsectionhead}
+  \begin{description}
+  \item[1884] Gottlob Frege publishes \emph{Die Grundlagen der
+      Arithmetik}
+  \item[1889] Giuseppe Peano axiomatizes first order arithmetic in \emph{Arithmetices principia, nova methodo exposita}.
+  \item[1900] David Hilbert presents 10 problems to the
+    \emph{International Congress of Mathematicians}, including his
+    second problem: \emph{Prove that the axioms of arithmetic are
+      consistent}.
+  \item[1901] Bertrand Russell finds a flaw in Frege's
+    \emph{Grundlagen}, writes a letter to Frege explaining what is now
+    known as Russell's paradox
+  \item[1903] Russell publishes \emph{The Principles of
+      Mathematics}. Appendix B alludes to a type hiearchy for
+    resolving Russell's paradox.  Russell and Alfred North Whitehead
+    start collaborating on the \emph{Principia Mathematica} shortly
+    after.
+  \item[1908] Russell invents the theory of \emph{ramified} types in
+    his publication \emph{Mathematical logic as based on the theory of
+      types}.
+  \item[1908] Zermelo axiomatizes set theory in \emph{Untersuchungen
+      \"uber die Grundlagen der Mengenlehre}.
+  \item[1910] Russell and Whitehead self-publish the \emph{Principia
+      Mathematica} after no publisher will print it. They take 379
+    pages to establish $1 + 1 = 2$ and write ``The above proposition
+    is occasionally useful.''
+  \item[1921] Leon Chwistek publishes \emph{Zasady czystej teorii
+      typów}, which criticizes Russell and Whitehead's ramified types
+    and presents the theory of \emph{simple} types for the first time.
+    types.
+  \item[1924] Moses Sch\"onfinkle writes \emph{\"Uber die Bausteine
+      der mathematischen Logik}, where he develops \emph{combinators}
+    and defines logic in terms of combinator functions.
+  \item[1926] David Hilbert writes \emph{On the Infinite}, where he
+    gives a failed proof of the continuum hypothesis.  In doing so, he
+    formulates the \emph{axiom of choice} using an \(\epsilon\)
+    operator he invents.
+  \item[1928] Hilbert authors \emph{Grundz\"uge der theoretischen
+      Logik}. This introduces the \emph{entscheidungsproblem} (the
+    ``decision problem''), which asks if there is an algorithm for
+    deciding for \emph{any} mathematical statement whether it is true
+    or false.
+  \item[1930] Haskell Curry publishes \emph{Grundlagen der
+      Kombinatorischen Logik}, which presents (untyped)
+    \emph{combinator logic}. This extends Sch\"onfinkle's work and
+    attempts to lay a foundation for mathematics.
+  \item[1931] Kurt G\"odel publishes \emph{\"Uber formal
+      unentscheidbare S\"atze der Principia Mathematica und verwandter
+      Systeme I}, or \emph{On Formally Undecidable Propositions of
+      Principia Mathematica and Related Systems}.  The paper proves
+    one theorem and makes a conjecture (ie, G\"odel's \emph{First} and
+    \emph{Second} incompleteness theorems respectively).  G\"odels
+    theorem establishes that there is an \emph{undecidable}
+    proposition in \emph{Principia Mathematica}, extended with the
+    Peano axioms for arithmetic and \emph{primitive recursive}
+    functions.  This provides a \emph{negative} answer to Hilbert's
+    \emph{entscheidungsproblem}.  He conjectures that ``$1 \neq 2$''
+    is undecidable (resolving Hilbert's second problem), and states he
+    will prove so in a follow up paper.  He never writes it.
+  \item[1932] Alonzo Church publishes \emph{A set of postulates for
+      the foundation of logic}, which presents the untyped
+    $\lambda$-calculus as a foundation for mathematics.
+  \item[1933] Rosser demonstrates that Curry's combinator logic
+    expresses the $\lambda$-calculus via the ``\emph{SKI}-embedding''
+    in \emph{A Mathematical Logic Without Variables. I}.
+  \item[1934] G\"odel and Jacques Herbrand extend primitive recursive
+    functions to \emph{general} recursive functions, providing a basis
+    for computation. This development can be found in notes from
+    G\"odels' Princeton lectures from that period.
+  \item[1934] Gerhard Gentzen develops the \emph{sequent calculus} in
+    \emph{Untersuchungen über das logische Schließen. I}.
+  \item[1935] Church writes to G\"odel suggesting the
+    $\lambda$-calculus as a basis for computation, and G\"odel rejects
+    his idea in favor of his own formulation.  G\"odel wrote to Church
+    that idea of the $\lambda$-calculus as the basis for computation
+    is ``thoroughly unsatisfactory''.
+  \item[1935] Kleene and Rosser publish \emph{The inconsistency of
+      certain formal logics}. This shows that there are terms for
+    which logic developed in the untyped $\lambda$-calculus/combinator
+    logic deduces are both \emph{true} and \emph{false}
+    simultaneously. The untyped $\lambda$-calculus is abandoned as a
+    foundation of mathematics.
+  \item[1936] Curry publishes \emph{Functionality in Combinatory
+      Logic} and observes that inhabited types in simply-typed
+    combinator logic correspond to theorems in the implicational
+    fragement of intuitionistic logic.
+  \item[1936] Church and Rosser prove the \emph{Church-Rosser theorem}
+    in \emph{Some properties of conversion}.  As consequence of this
+    is that if a term in the $\lambda$-calculus reduces to a normal
+    form, that form is \emph{unique}.  This establishes the
+    consistency of the functional fragment of the $\lambda$-calculus.
+  \item[1936] Alonzo Church publishes \emph{An Unsolvable Problem of
+      Elementary Number Theory}, providing an alternate solution to
+    the \emph{entscheidungsproblem} to G\"odels.  He also demonstrates
+    that G\"odel's notion of recursive functions is equivalent to the
+    untyped $\lambda$-calculus.
+  \item[1936] Gerhard Gentzen proves that primitive recursive
+    arithmetic with transfinite induction up to $\epsilon_0$ is
+    co-consistent with first order Peano arithmetic. This provides
+    another perspective on Hilbert's second problem.
+  \item[1937] Alan Turing devises \emph{Turing Machines} as a
+    foundation for computation in \emph{On Computable Numbers, with an
+      Application to the Entscheidungsproblem}.  He proves no machine
+    can compute the \emph{halting problem}.
+  \item[1937] Alan Turing proves \emph{Turing Machines} and the
+    $\lambda$-calculus have equivalent computational power in
+    \emph{Computability and $\lambda$-Definability}.
+  \item[1938] Alan Turing is awarded his PhD for \emph{Systems of
+      Logic Based on Ordinals}.
+  \item[1939] Hilbert and Bernays provide an \emph{actual} proof of
+    G\"odel's second incompleteness theorem in \emph{Grundlagen der
+      Mathematik}, vol. 2.  Historians rarely acknowledge this and
+    credit G\"odel anyway.
+  \item[1940] Alanzo Church develops the \emph{simply-typed}
+    $\lambda$-calculus in \emph{A Formulation of the Simple Theory of
+      Types}.  He provides the earliest formulation of \emph{Higher
+      Order Logic} and revives the research program of the
+    \emph{Principia Mathematica}.  Church's logic contains forms of
+    the axioms of \emph{extensionality}, \emph{infinity} and
+    \emph{choice}.  Church uses $\iota$ in place of Hilbert's
+    $\epsilon$ operator given in \emph{On The Infinite} (1926).\\~\
+
+    Like Gentzen's arithmetical framework employing transfinite
+    induction, Church's framework is powerful enough to prove the
+    consistency of Peano arithmetic.
+  \item[1942] Curry simplifies Kleene and Rosser's paradox from 1935
+    into what is now known as \emph{Curry's Paradox}.  Briefly, this
+    is that logic formulated in the untyped $\lambda$-calculus will
+    both prove and disprove $Y (\lambda x. \neg x)$, where
+    $Y = \lambda f. \ (\ \lambda x.(f\ (x\ x))\ \lambda x.(f\ (x\ x))
+    \ )$.
+  \item[1955] Martin L\"ob adapts Curry's paradox to prove
+    \emph{L\"ob's Theorem} in Peano arithmetic.  The theorem states:
+    \[
+      \mathrm{PA} \vdash \mathrm{Bew} \ulcorner \mathrm{Bew} \ulcorner
+      P \urcorner \to P \urcorner \to \mathrm{Bew} \ulcorner P
+      \urcorner
+    \]
+    An immediate consequence is G\"odel's second incompleteness
+    theorem:
+    \(\mathrm{PA} \nvdash \neg \mathrm{Bew} \ulcorner \bot \urcorner
+    \)\\~\
+
+    \emph{Proof.} Suppose
+    \(\mathrm{PA} \vdash \mathrm{Bew} \ulcorner \bot \urcorner \to
+    \bot\).  Then
+    \(\mathrm{PA} \vdash \mathrm{Bew} \ulcorner \mathrm{Bew} \ulcorner
+    \bot \urcorner \to \bot\urcorner \) , hence
+    \(\mathrm{PA} \vdash \mathrm{Bew} \ulcorner \bot \urcorner \) by
+    L\"ob's theorem and \(\mathrm{PA} \vdash \bot\) \Lightning
+  \end{description}
+\end{frame}
+
+\subsection{Computer Proof}
+\begin{frame}[allowframebreaks]{\insertsectionhead\ \textemdash\
+    \insertsubsectionhead}
+  \begin{description}
+  \item[1955] Findlay and Lambek remark on the connection between logic and category theory in the \emph{Calculus of Bimodules}, but never publish.
+  \item[1958] John McCarthy adapts Turing's \emph{``Universal Turing
+    Machine''} to the $\lambda$-calculus and calls it \texttt{eval}
+  while writing \emph{Recursive Functions of Symbolic Expressions and
+    Their Computation by Machine, Part I}. Steve Russell reads his
+  paper and implements his ideas on the IBM 704, creating \emph{LISP
+    1} and the first REPL.\\~\
+
+  The lisp functions \texttt{CAR} and
+  \texttt{CDR} (\lstinline{head} and \lstinline{tail} in Haskell respectively)
+  refer to the \emph{``Content Address Register''} and the \emph{``Content Decrement Register''} assembler macros for the 704.
+\item[1967] Nicolaas Govert de Bruijn invents \emph{Automath}, one of
+  the first computer proof checkers.  \emph{Automath} made use of the
+  Curry-Howard isomorphism, although de Bruijn was not aware of
+  Howard's work at the time.  Theorem proving in \emph{Automath}
+  amounts to demonstrating type inhabitation using the
+  $\lambda$-calculus.
+  \item[1968] Joachim Lambek formally observes the isomorphism from intuitionistic logic to category theory in \emph{Deductive systems and categories}.
+  \item[1969] Howard remarks on the \emph{Curry-Howard Isomorphism} in \emph{The formulae-as-types notion of construction}, but doesn't publish until 1980.
+  \item[1969] Dana Scott devises a novel framework for theorem proving
+    using the $\lambda$-calculus in \emph{A type-theoretical
+      alternative to ISWIM, CUCH, OWHY}. However, he doesn't publish
+    his manuscript until 1993.
+  \item[1971] Per Martin-L\"of introduces the first theory of dependent types in \emph{An intuitionistic theory of types}. He does not publish.
+  \item[1972] Jean-Yves Girard demonstrates that one can construct \lstinline{undefined :: forall p . p}, in \emph{impredicative} type theory. His construction implies all types are inhabited.  Martin-L\"of start to make ammedments to his logic.
+  \item[1973] Per Martin-L\"of revises his logic and publishes \emph{An intuitionistic theory of types: predicative part}.
+  \item[1973] Robin Milner picks up Scott's idea, and revolutionizes functional programming:
+
+    \
+
+     \begin{itemize}
+     \item He writes ML (which stands for \emph{``Meta Language''}) in LISP
+     \item ML makes use of Hindley-Milner type inference
+     \item Milner refines Scott's work is into \emph{The Logic of Computable Functions} (LCF)
+       \item LCF is implemented in ML.  LCF is designed with a small \emph{kernel} of axioms and rules, and while the rest of the system is untrusted.
+       \item LCF makes use of ADTs for storing theorems rather than
+         storing proofs.  This is because Milner he kept running out
+         of memory storing proofs. Except for axioms, operations
+         for constructing theorems are operations on a
+         \emph{theorem} ADT.
+     \end{itemize}
+
+     \
+
+ Milner describes this work in \emph{Models of LCF}.
+  \item[1975] Diaconescu proves the axiom of choice implies the law of excluded middle in Topos theory in \emph{Axiom of choice and complementation}.
+  \item[1975] Andrzej Trybulec unveils \emph{Mizar}, written in Algol
+    1204. This is the first \emph{declarative} computer proof system.
+    Mizar is based on first order logic and Zermelo-Fraenkel set
+    theory. But unlike LCF, the Mizar proof system has the following flaws:
+    \begin{itemize}
+    \item It has no small kernel of trusted computing. Instead it uses a number of ad-hoc decision algorithms for fragments of first order logic.
+    \item It's closed source.
+    \end{itemize}
+
+    \
+
+    Rudnicki and Trybulec publish their work in \emph{A Collection of {\TeX}ed Mizar Abstracts}
+
+  \item[1976] Appel and Haken prove the \emph{Four Color Theorem}, by
+    enumerating 1,834 irreducible planar map configurations and
+    providing a coloring for each.  The proof takes a computer from
+    that time over a thousand hours to verify. For over a decade
+    after there are rumors of a flaw in their proof.
+  \item[1983] Michael Gordon embeds Church's original \emph{Higher Order Logic} from 1940 into LCF with some simplifications. This creates the first HOL implementation. His intention is to formally verify hardware.  He writes about his work in two publications: \emph{A system for specifying and verifying hardware} and \emph{Proving a computer correct}.
+  \item[1989] Lawrence Paulson describes \emph{Isabelle} in \emph{The
+      foundation of a generic theorem prover}.  Isabelle is an
+    LCF-type computer proof system written in Standard ML. Isabelle is
+    strongly influenced by developments in \emph{Prolog} from this
+    period. It is originally designed for Martin-L\"of's constructive
+    type theory. Isabelle is ultimately adapted to
+    Zermelo-Fraenkel set theory and Michael Gordon's HOL.
+  \end{description}
+\end{frame}
+
+% \subsection{The Modern Age}
+% \begin{frame}[allowframebreaks]{\insertsectionhead\ \textemdash\
+%     \insertsubsectionhead}
+%   \begin{description}
+%   \end{description}
+% \end{frame}
+
+% \subsection{References}
+% \begin{frame}[allowframebreaks]{\insertsectionhead\ \textemdash\
+%     \insertsubsectionhead}
+%   \begin{description}
+%     \item TODO
+%   \end{description}
+% \end{frame}
+
+% \section{Axiomatics}
+% \begin{frame}[plain]
+%   \vfill \centering
+%   \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+%     \usebeamerfont{title}\insertsectionhead\par%
+%   \end{beamercolorbox}
+%   \vfill
+% \end{frame}
+
+% \subsection{Example}
+% \begin{frame}{\insertsubsectionhead}
+%   \only<1>{
+%     Let \(p(x)=\mathcal{N}\) and \(q(x)=\mathcal{N}\): \\
+%     \begin{equation}
+%       \mathcal{N}=2
+%     \end{equation}}
+%   \only<2>{
+%     Kullback-Leibler divergence for continuous probabilities:
+%     \begin{align*}
+%       D(p,q)=&foo
+%     \end{align*}
+%   }
+% \end{frame}
+
+\section{Pigeon Hole Proof Challenge}
+\begin{frame}[plain]
+  \vfill \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+    \usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+\end{frame}
+
+\subsection{A Proof In Prose}
+\begin{frame}[plain, allowframebreaks]{\insertsubsectionhead}
+
+\begin{theorem}
+  Let \(L\) be a non-empty list of distinct, positive integers.  There
+  exists an \(n \in L\) such that \(n\geq \left|L\right|\) (ie, \(n\)
+  is greater than or equal to the length of \(L\).) \\~\
+\end{theorem}
+
+\emph{Proof.} It suffices to prove that if all elements \(n \in L\)
+are less than or equal to \(L\) then \(|L|\) is a permutation of
+\(\{1,2,\ldots,\left|L\right|\}\).  The proof proceeds by induction on
+the length of \(|L|\). \\~\
+
+When \(\left|L\right| = 1\), it must be \(L=\{1\}\) since \(L\) is a
+list of positive integers. \\~\
+
+\framebreak
+
+For the inductive step, if \(|L| = n + 1\) then
+\(L = \{n\} \cup L^\prime\) for some positive \(n\) and \(L^\prime\)
+where \(|L^\prime| = n\). \\~\
+
+
+If \(|L| \not\in L^\prime\) then for all \(m \in L^\prime\) we have
+\(m <|L|\) by assumption. Hence
+\(L^\prime = \{1,2,\ldots, |L^\prime|\}\) by the inductive
+hypothesis. It must be then \(n = |L|\) since the elements are
+distinct, and the result is obtained.\\~\
+
+Otherwise if \(|L| \in L^\prime\), then \(n^\prime <|L|\).  However we
+can rewrite \(L\) as:
+
+\[L = (\{n^\prime\} \cup (L^\prime - \{|L|\})) \cup \{|L|\}. \]
+
+By the inductive hypothesis
+\(\{n^\prime\} \cup (L^\prime - \{|L|\}) = \{1,2,\ldots,
+|L^\prime|\}\), so the result again obtains.\\~\
+
+\emph{Q.E.D.}
+\end{frame}
+
+\subsection{Overview of The Isabelle/HOL Proof}
+\begin{frame}[plain]{\insertsubsectionhead}
+
+  In Isabelle/HOL, our pigeon hole theorem can be expressed as:\\~\
+
+  \Snippet{Pigeon HOL}
+
+  \
+
+  The notation Isabelle/HOL uses corresponds to the following Haskell
+  expressions:
+
+\begin{center}
+  \resizebox{.5\linewidth}{!}{
+    \begin{tabular}{|c | c|}
+      \hline
+      Isabelle/HOL & Haskell \\
+      \hline
+      \Snippet{Cons} & \lstinline{n : ns} \\
+      \hline
+      \Snippet{Length} & \lstinline{length (n : ns)} \\
+      \hline
+      \Snippet{Conj} & \lstinline{x \&\& y}\\
+      \hline
+      \Snippet{Universal Quantifier} & \lstinline{all p (n : ns)}\\
+      \hline
+      \Snippet{Existential Quantifier} & \lstinline{any p (n : ns)}\\
+      \hline
+    \end{tabular}}
+\end{center}
+
+\end{frame}
+
+\subsection{Beginning The Isabelle Theory}
+\begin{frame}[plain]{\insertsubsectionhead}
+  \begin{tcolorbox}
+    \begin{isabellebody}
+      \isacommand{theory}\isamarkupfalse%
+      \ Pigeon\isanewline \ \ \isakeyword{imports}\
+      {\isachardoublequoteopen}{\isachartilde}\,{\isachartilde}{\isacharslash}src{\isacharslash}HOL{\isacharslash}Library{\isacharslash}Permutation{\isachardoublequoteclose}\isanewline
+      \isakeyword{begin}
+    \end{isabellebody}
+  \end{tcolorbox}
+\end{frame}
+
+\subsection{Lemma}
+\subsubsection{Statement}
+
+\begin{frame}[plain]{\insertsubsectionhead\ \textemdash\
+    \insertsubsubsectionhead}
+
+  To prove this theorem we first establish a lemma:\\~\
+
+  \resizebox{1\linewidth}{!}{\begin{minipage}{1.50\linewidth}
+      \Snippet{Permutation Lemma}
+    \end{minipage}}\\~\
+
+  Where:\\~\
+  \begin{itemize}
+  \item \Snippet{List Range} is equivalent to \lstinline{[1..m]} in
+    Haskell
+  \item \Snippet{Permutation} denotes that the list \Snippet{ns Term}
+    is a \emph{permutation} of \Snippet{List Range}\\~\
+  \end{itemize}
+
+  The proof is a bit long. but showcases a number of features of
+  Isabelle/HOL.
+
+\end{frame}
+
+\subsubsection{Starting The Proof}
+
+\begin{frame}[plain]{\insertsubsectionhead\ \textemdash\
+    \insertsubsubsectionhead}
+
+  \begin{tcolorbox}
+    \begin{isabellebody}
+      \isacommand{lemma}\isamarkupfalse%
+      \
+      bounded{\isacharunderscore}above{\isacharunderscore}perm{\isacharcolon}\isanewline
+      \ \ \isakeyword{fixes}\ ns\ {\isacharcolon}{\isacharcolon}\
+      {\isachardoublequoteopen}nat\
+      list{\isachardoublequoteclose}\isanewline \ \
+      \isakeyword{assumes}\ {\isachardoublequoteopen}distinct\
+      ns{\isachardoublequoteclose}\isanewline \ \ \isakeyword{and}\
+      {\isachardoublequoteopen}{\isasymforall}\ n\ {\isasymin}\ set\
+      ns{\isachardot}\ {\isadigit{0}}\ {\isacharless}\ n\
+      {\isasymand}\ n\ {\isasymle}\ length\
+      ns{\isachardoublequoteclose}\isanewline \ \ \isakeyword{shows}\
+      {\isachardoublequoteopen}ns\ {\isasymsimeq}\
+      {\isacharbrackleft}{\isadigit{1}}{\isachardot}{\isachardot}{\isacharless}length\
+      ns\ {\isacharplus}\
+      {\isadigit{1}}{\isacharbrackright}{\isachardoublequoteclose}\isanewline
+%
+      \isacommand{using}\isamarkupfalse%
+      \ assms\isanewline \isacommand{proof}\isamarkupfalse%
+      \ {\isacharparenleft}induct\ {\isachardoublequoteopen}length\
+      ns{\isachardoublequoteclose}\ arbitrary{\isacharcolon}\
+      ns{\isacharparenright}
+    \end{isabellebody}
+  \end{tcolorbox}
+
+
+\end{frame}
+\subsubsection{Base Case}
+\begin{frame}[plain]{\insertsubsectionhead\ \textemdash\
+    \insertsubsubsectionhead}
+
+  \begin{tcolorbox}
+    \begin{isabellebody}
+      \ \ \isacommand{case}\isamarkupfalse%
+      \ {\isadigit{0}}\isanewline \ \
+      \isacommand{then}\isamarkupfalse%
+      \ \isacommand{show}\isamarkupfalse%
+      \ {\isacharquery}case\ \isacommand{by}\isamarkupfalse%
+      \ auto
+    \end{isabellebody}
+  \end{tcolorbox}
+
+  \
+
+  Note that the prose proof started with \(1\) rather than \(0\).\\~\
+
+  This is because it is more convenient to prove something even
+  stronger than the sub-result in the prose proof.
+
+\end{frame}
+
+\subsubsection{Inductive Step $\dagger$ Sub-Lemma}
+\begin{frame}[plain, allowframebreaks]{\insertsubsectionhead\
+    \textemdash\ \insertsubsubsectionhead}
+
+  \begin{tcolorbox}
+    \begin{isabellebody}
+      \isacommand{next}\isamarkupfalse%
+      \isanewline \ \ \isacommand{case}\isamarkupfalse%
+      \ {\isacharparenleft}Suc\ m{\isacharparenright}\isanewline \ \
+      \isacommand{have}\isamarkupfalse%
+      \ {\isasymdagger}{\isacharcolon}\ {\isachardoublequoteopen}\ \ \
+      \ {\isasymforall}ns{\isacharprime}\ n{\isachardot}\ ns\
+      {\isasymsimeq}\ n\ {\isacharhash}\ ns{\isacharprime}\isanewline
+      \ \ \ \ \ \ \ \ \ \ \ {\isasymlongrightarrow}\ length\ ns\
+      {\isasymnotin}\ set\ ns{\isacharprime}\ \isanewline \ \ \ \ \ \
+      \ \ \ \ \ {\isasymlongrightarrow}\ ns\ {\isasymsimeq}\
+      {\isacharbrackleft}{\isadigit{1}}{\isachardot}{\isachardot}{\isacharless}length\
+      ns\ {\isacharplus}\
+      {\isadigit{1}}{\isacharbrackright}{\isachardoublequoteclose}\isanewline
+      \ \ \isacommand{proof}\isamarkupfalse%
+      \ {\isacharparenleft}rule\ allI{\isacharcomma}\ rule\
+      allI{\isacharcomma}\ \isanewline \ \ \ \ \ \ \ \ rule\
+      impI{\isacharcomma}\ rule\ impI{\isacharparenright}\isanewline \
+      \ \ \ \isacommand{fix}\isamarkupfalse%
+      \ n\ {\isacharcolon}{\isacharcolon}\ nat\isanewline \ \ \ \
+      \isacommand{fix}\isamarkupfalse%
+      \ ns{\isacharprime}\ {\isacharcolon}{\isacharcolon}\
+      {\isachardoublequoteopen}nat\
+      list{\isachardoublequoteclose}\isanewline \ \ \ \
+      \isacommand{assume}\isamarkupfalse%
+      \ {\isachardoublequoteopen}ns\ {\isasymsimeq}\ n\
+      {\isacharhash}\ ns{\isacharprime}{\isachardoublequoteclose}\
+      \isanewline \ \ \ \ \ \ \ \isakeyword{and}\
+      {\isachardoublequoteopen}length\ ns\ {\isasymnotin}\ set\
+      ns{\isacharprime}{\isachardoublequoteclose}
+    \end{isabellebody}
+  \end{tcolorbox}
+
+  \framebreak
+
+  \begin{itemize}
+  \item \Snippet{allI}\\~\
+
+    \emph{Universal Quantifier Introduction}\ \textemdash\ ``If we can
+    prove \Snippet{P x Term} for any fixed \Snippet{x Term}, then we
+    can prove for all \Snippet{Forall P x Term}'' \\~\
+
+    Note that $\bigwedge$ here is not the same as in System-F.\\~\
+
+    For example, consider the System-F term
+    \( \Lambda\alpha. \lambda x^\alpha.x: \forall\alpha.\alpha \to
+    \alpha\).\\~\
+
+    Here \(\Lambda \alpha. P \alpha\) is a type-level functional
+    abstraction.\\~\
+
+    On the other hand, the term \Snippet{allI Premise} involves a
+    universal quantifier in Isabelle/Pure, the base logic for
+    Isabelle/HOL (and other logics Isabelle supports).
+
+    \framebreak
+
+  \item \Snippet{impI} \\~\
+
+    \emph{Implication Introduction} \ \textemdash\ ``If we can deduce
+    \Snippet{Q Term} when assuming \Snippet{P Term}, we can deduce
+    \Snippet{P Implies Q Term}'' \\~\
+  \end{itemize}
+
+  Together these two rules allow us to introduce fixed variables and
+  assumptions in order to prove \\~\
+
+  \resizebox{1\linewidth}{!}{\begin{minipage}{1.45\linewidth}
+      \Snippet{Sub-lemma Statement}
+    \end{minipage}}\\~\
+\end{frame}
+
+
+\subsubsection{$\dagger$ Sub-Lemma Proof}
+\begin{frame}[plain, allowframebreaks]{\insertsubsectionhead\
+    \textemdash\ \insertsubsubsectionhead}
+
+  \begin{tcolorbox}
+    \begin{isabellebody}
+      \ \ \ \ \isacommand{hence}\isamarkupfalse%
+      \ {\isachardoublequoteopen}{\isasymforall}n{\isasymin}set\
+      ns{\isacharprime}{\isachardot}\ {\isadigit{0}}\ {\isacharless}\
+      n\ {\isasymand}\ n\ {\isasymle}\
+      m{\isachardoublequoteclose}\isanewline \ \ \ \ \ \
+      \isacommand{by}\isamarkupfalse%
+      \ {\isacharparenleft}metis\
+      Suc{\isachardot}hyps{\isacharparenleft}{\isadigit{2}}{\isacharparenright}\
+      Suc{\isachardot}prems{\isacharparenleft}{\isadigit{2}}{\isacharparenright}\
+      \isanewline \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+      le{\isacharunderscore}SucE\
+      notin{\isacharunderscore}set{\isacharunderscore}remove{\isadigit{1}}\
+      \isanewline \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+      perm{\isacharunderscore}set{\isacharunderscore}eq\
+      remove{\isacharunderscore}hd{\isacharparenright}\isanewline \ \
+      \ \ \isacommand{hence}\isamarkupfalse%
+      \ {\isachardoublequoteopen}ns{\isacharprime}\ {\isasymsimeq}\
+      {\isacharbrackleft}{\isadigit{1}}{\isachardot}{\isachardot}{\isacharless}length\
+      ns{\isacharbrackright}{\isachardoublequoteclose}\isanewline \ \
+      \ \ \ \ \isacommand{by}\isamarkupfalse%
+      \ {\isacharparenleft}metis\ {\isacartoucheopen}ns\
+      {\isasymsimeq}\ n\ {\isacharhash}\
+      ns{\isacharprime}{\isacartoucheclose}\ \isanewline \ \ \ \ \ \ \
+      \ \ \ \ \ \ \ \ \
+      One{\isacharunderscore}nat{\isacharunderscore}def\
+      Suc{\isachardot}hyps{\isacharparenleft}{\isadigit{1}}{\isacharparenright}\
+      \isanewline \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+      Suc{\isachardot}hyps{\isacharparenleft}{\isadigit{2}}{\isacharparenright}\
+      Suc{\isachardot}prems{\isacharparenleft}{\isadigit{1}}{\isacharparenright}\
+      \isanewline \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+      Suc{\isacharunderscore}inject\
+      distinct{\isachardot}simps{\isacharparenleft}{\isadigit{2}}{\isacharparenright}\
+      \isanewline \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+      length{\isacharunderscore}Cons\
+      list{\isachardot}size{\isacharparenleft}{\isadigit{4}}{\isacharparenright}\
+      \isanewline \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+      perm{\isacharunderscore}distinct{\isacharunderscore}iff\
+      \isanewline \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+      perm{\isacharunderscore}length{\isacharparenright}
+    \end{isabellebody}
+  \end{tcolorbox}
+
+  \framebreak
+
+  The \texttt{metis} resolution based theorem prover.\\~\
+
+  It was written in ML \cite{hurdFirstorderProofTactics2003}, and
+  ported to Isabelle/HOL.\\~\
+
+  Isabelle's kernel checks the proof \texttt{metis} generates to make
+  sure they are correct.\\~\
+
+  \framebreak
+
+  All of the theorems provided to \texttt{metis} are discovered by
+  Isabelle/HOL's \emph{Sledgehammer} tool
+  \cite{mengAutomationInteractiveProof2006,
+    paulsonSourceLevelProofReconstruction2007}.\\~\
+
+  This tool transforms the current proof goal and theorems known to
+  Isabelle into a form suitable for SMT solvers. \\~\
+
+  Proofs are reconstructed using \texttt{metis}, using the relevant
+  theorems the solvers used to derive their proofs.\\~\
+
+  Note that results from earlier in the proof will be used along with
+  library theorems.  Earlier results are denoted by
+  ``$\langle \cdots \rangle$''.\\~\
+
+  Recently a version of hammer has been ported to \emph{Coq}
+  \cite{czajkaHammerCoqAutomation2018}.
+
+  \framebreak
+
+  \begin{tcolorbox}
+    \begin{isabellebody}
+      \ \ \ \ \isacommand{have}\isamarkupfalse%
+      \ {\isachardoublequoteopen}n\ {\isasymnotin}\ set\
+      ns{\isacharprime}{\isachardoublequoteclose}\isanewline \ \ \ \ \
+      \ \isacommand{by}\isamarkupfalse%
+      \ {\isacharparenleft}meson\ {\isacartoucheopen}ns\
+      {\isasymsimeq}\ n\ {\isacharhash}\
+      ns{\isacharprime}{\isacartoucheclose}\ \isanewline \ \ \ \ \ \ \
+      \ \ \ \ \ \ \ \ \
+      Suc{\isachardot}prems{\isacharparenleft}{\isadigit{1}}{\isacharparenright}\
+      \isanewline \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+      distinct{\isachardot}simps{\isacharparenleft}{\isadigit{2}}{\isacharparenright}\
+      \isanewline \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+      perm{\isacharunderscore}distinct{\isacharunderscore}iff{\isacharparenright}\isanewline
+      \ \ \ \ \isacommand{hence}\isamarkupfalse%
+      \ {\isachardoublequoteopen}n\ {\isasymge}\ length\
+      ns{\isachardoublequoteclose}\isanewline \ \ \ \ \ \
+      \isacommand{by}\isamarkupfalse%
+      \ {\isacharparenleft}metis\ {\isacartoucheopen}ns\
+      {\isasymsimeq}\ n\ {\isacharhash}\
+      ns{\isacharprime}{\isacartoucheclose}\ \isanewline \ \ \ \ \ \ \
+      \ \ \ \ \ \ \ \ \ {\isacartoucheopen}ns{\isacharprime}\
+      {\isasymsimeq}\
+      {\isacharbrackleft}{\isadigit{1}}{\isachardot}{\isachardot}{\isacharless}length\
+      ns{\isacharbrackright}{\isacartoucheclose}\ \isanewline \ \ \ \
+      \ \ \ \ \ \ \ \ \ \ \ \
+      One{\isacharunderscore}nat{\isacharunderscore}def\ \isanewline \
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+      Suc{\isachardot}prems{\isacharparenleft}{\isadigit{2}}{\isacharparenright}\
+      Suc{\isacharunderscore}leI\ \isanewline \ \ \ \ \ \ \ \ \ \ \ \
+      \ \ \ \ atLeastLessThan{\isacharunderscore}iff\ \isanewline \ \
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ leI\
+      list{\isachardot}set{\isacharunderscore}intros{\isacharparenleft}{\isadigit{1}}{\isacharparenright}\
+      \isanewline \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+      perm{\isacharunderscore}set{\isacharunderscore}eq\
+      set{\isacharunderscore}upt{\isacharparenright}
+    \end{isabellebody}
+  \end{tcolorbox}
+
+  \framebreak
+
+  \begin{tcolorbox}
+    \begin{isabellebody}
+      \ \ \ \ \isacommand{hence}\isamarkupfalse%
+      \ {\isachardoublequoteopen}n\ {\isacharequal}\ length\
+      ns{\isachardoublequoteclose}\isanewline \ \ \ \ \ \
+      \isacommand{using}\isamarkupfalse%
+      \ {\isacartoucheopen}ns\ {\isasymsimeq}\ n\ {\isacharhash}\
+      ns{\isacharprime}{\isacartoucheclose}\ \isanewline \ \ \ \ \ \ \
+      \ \ \ \
+      Suc{\isachardot}prems{\isacharparenleft}{\isadigit{2}}{\isacharparenright}\
+      \isanewline \ \ \ \ \ \ \ \ \ \ \
+      perm{\isacharunderscore}set{\isacharunderscore}eq\ \isanewline \
+      \ \ \ \ \ \isacommand{by}\isamarkupfalse%
+      \ force\isanewline \ \ \ \ \isacommand{hence}\isamarkupfalse%
+      \ {\isachardoublequoteopen}n\ {\isacharhash}\ ns{\isacharprime}\
+      {\isasymsimeq}\
+      {\isacharbrackleft}{\isadigit{1}}{\isachardot}{\isachardot}{\isacharless}length\
+      ns\ {\isacharplus}\
+      {\isadigit{1}}{\isacharbrackright}{\isachardoublequoteclose}\isanewline
+      \ \ \ \ \ \ \isacommand{by}\isamarkupfalse%
+      \ {\isacharparenleft}metis\
+      {\isacartoucheopen}ns{\isacharprime}\ {\isasymsimeq}\
+      {\isacharbrackleft}{\isadigit{1}}{\isachardot}{\isachardot}{\isacharless}length\
+      ns{\isacharbrackright}{\isacartoucheclose}\ \isanewline \ \ \ \
+      \ \ \ \ \ \ \ \ \ \ \ \
+      Suc{\isachardot}hyps{\isacharparenleft}{\isadigit{2}}{\isacharparenright}\
+      Suc{\isacharunderscore}eq{\isacharunderscore}plus{\isadigit{1}}\
+      \isanewline \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+      Suc{\isacharunderscore}eq{\isacharunderscore}plus{\isadigit{1}}{\isacharunderscore}left\
+      \isanewline \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+      add{\isachardot}right{\isacharunderscore}neutral\isanewline \ \
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \
+      add{\isacharunderscore}le{\isacharunderscore}cancel{\isacharunderscore}right\
+      \isanewline \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ leI\
+      not{\isacharunderscore}less{\isadigit{0}}\
+      perm{\isachardot}Cons\ \isanewline \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+      \ perm{\isachardot}trans\
+      perm{\isacharunderscore}append{\isacharunderscore}single\isanewline
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ perm{\isacharunderscore}sym\
+      upt{\isacharunderscore}Suc{\isacharparenright}\isanewline \ \ \
+      \ \isacommand{thus}\isamarkupfalse%
+      \ {\isachardoublequoteopen}ns\ {\isasymsimeq}\
+      {\isacharbrackleft}{\isadigit{1}}{\isachardot}{\isachardot}{\isacharless}length\
+      ns\ {\isacharplus}\
+      {\isadigit{1}}{\isacharbrackright}{\isachardoublequoteclose}\isanewline
+      \ \ \ \ \ \ \isacommand{using}\isamarkupfalse%
+      \ {\isacartoucheopen}ns\ {\isasymsimeq}\ n\ {\isacharhash}\
+      ns{\isacharprime}{\isacartoucheclose}\
+      \isacommand{by}\isamarkupfalse%
+      \ blast\isanewline \ \ \isacommand{qed}
+    \end{isabellebody}
+  \end{tcolorbox}
+
+  \framebreak
+
+  Just as \texttt{proof} denotes the start of a proof-block,
+  \texttt{qed} denotes the end. \\~\
+
+  We have now established \\~\
+
+  \resizebox{1\linewidth}{!}{\begin{minipage}{1.45\linewidth}
+      \Snippet{Sub-lemma Statement}
+    \end{minipage}}\\~\
+
+  ...using the inductive hypothesis.
+
+\end{frame}
+
+\subsubsection{Proof Conclusion By Case Reasoning}
+\begin{frame}[plain, allowframebreaks]{\insertsubsectionhead\
+    \textemdash\ \insertsubsubsectionhead}
+
+  \begin{tcolorbox}
+    \begin{isabellebody}
+      \ \ \isacommand{from}\isamarkupfalse%
+      \ Suc\ \isacommand{obtain}\isamarkupfalse%
+      \ n\ ns{\isacharprime}\ \isanewline \ \ \ \ \isakeyword{where}\
+      {\isachardoublequoteopen}ns\ {\isacharequal}\ n\ {\isacharhash}\
+      ns{\isacharprime}{\isachardoublequoteclose}\isanewline \ \ \ \
+      \isacommand{by}\isamarkupfalse%
+      \ {\isacharparenleft}meson\
+      Suc{\isacharunderscore}length{\isacharunderscore}conv{\isacharparenright}
+    \end{isabellebody}
+  \end{tcolorbox}
+
+  Just as the pattern
+
+  \begin{isabelle}
+    \isacommand{proof} (\isacommand{rule} allI, \isacommand{rule} impI) \\
+    \isacommand{fix} x \\
+    \isacommand{assume} "P x"
+  \end{isabelle}
+
+  \ldots converts universal quantifiers into fixed variables with
+  assumptions, existential quantifiers are converted with
+
+  \begin{isabelle}
+    \isacommand{obtain} \ldots\ \isacommand{where} \ldots
+  \end{isabelle}
+
+  \framebreak
+
+  \begin{tcolorbox}
+    \begin{isabellebody}
+      \ \ \isacommand{have}\isamarkupfalse%
+      \ {\isachardoublequoteopen}distinct\
+      ns{\isacharprime}{\isachardoublequoteclose}\ \isanewline \ \ \ \
+      \ \ \ {\isachardoublequoteopen}{\isasymforall}n{\isasymin}set\
+      ns{\isacharprime}{\isachardot}\ {\isadigit{0}}\ {\isacharless}\
+      n\ {\isasymand}\ n\ {\isasymle}\ length\
+      ns{\isachardoublequoteclose}\ \isanewline \ \ \ \ \ \ \
+      {\isachardoublequoteopen}length\ ns{\isacharprime}\
+      {\isacharequal}\ m{\isachardoublequoteclose}\isanewline \ \ \ \
+      \isacommand{using}\isamarkupfalse%
+      \ Suc{\isacharparenleft}{\isadigit{2}}{\isacharparenright}\
+      Suc{\isacharparenleft}{\isadigit{3}}{\isacharparenright}\
+      Suc{\isacharparenleft}{\isadigit{4}}{\isacharparenright}\isanewline
+      \ \ \ \ \isacommand{unfolding}\isamarkupfalse%
+      \ {\isacartoucheopen}ns\ {\isacharequal}\ n\ {\isacharhash}\
+      ns{\isacharprime}{\isacartoucheclose}\isanewline \ \ \ \
+      \isacommand{by}\isamarkupfalse%
+      \ auto\isanewline \ \ \isacommand{show}\isamarkupfalse%
+      \ {\isacharquery}case\isanewline \ \
+      \isacommand{proof}\isamarkupfalse%
+      \ {\isacharparenleft}cases\ {\isachardoublequoteopen}length\ ns\
+      {\isasymin}\ set\
+      ns{\isacharprime}{\isachardoublequoteclose}{\isacharparenright}
+    \end{isabellebody}
+  \end{tcolorbox}
+
+  \framebreak
+
+  The proof proceeds in a \emph{non-constructive} manner, checking the
+  two possible cases wehre \Snippet{Positive Case} and
+  \Snippet{Negative Case}.\\~\
+
+  Non-constructive proofs are often simpler than constructive
+  proofs. Consider the statement ``There exists two irrational numbers
+  \(x\) and \(y\) such that \(x^y\) is rational.''\\~\
+
+  The non-constructive proof is simple.  Let \(x = y = \sqrt{2}\).  We
+  know \(\sqrt{2}\) is irrational due to Hippasus the Pythagorean's
+  argument from circa 500 BC. If \({\sqrt{2}}^{\sqrt{2}}\) is rational
+  we are done.
+
+  If not, let \(x = {\sqrt{2}}^{\sqrt{2}}\) and $y = \sqrt{2}$.  In
+  this case we are done too since
+  $({\sqrt{2}}^{\sqrt{2}})^{\sqrt{2}} = 2$.\\~\
+
+  \framebreak
+
+  For a more satisfying proof, consider $x = \sqrt{10}$ and
+  $y = \log(4)$.  Since \(\sqrt{10}^{\log(4)} = 10^{\log(2)} = 2\) we
+  are done.\\~\
+
+  But this constructive proof relies on defining logarithms, as well
+  as two lemmas regarding the irrationality of $\sqrt{10}$ and
+  $\log(4)$ respectively.\\~\
+
+  Formalizing it in Isabelle/HOL would be a lot more work!
+
+  \framebreak
+
+
+  \begin{tcolorbox}
+    \begin{isabellebody}
+      \ \ \ \ \isacommand{case}\isamarkupfalse%
+      \ False\isanewline \ \ \ \ \isacommand{thus}\isamarkupfalse%
+      \ {\isacharquery}thesis\isanewline \ \ \ \ \ \
+      \isacommand{using}\isamarkupfalse%
+      \ {\isasymdagger}\ {\isacartoucheopen}ns\ {\isacharequal}\ n\
+      {\isacharhash}\ ns{\isacharprime}{\isacartoucheclose}\
+      \isacommand{by}\isamarkupfalse%
+      \ blast
+    \end{isabellebody}
+  \end{tcolorbox}
+
+  \framebreak
+
+  \begin{tcolorbox}
+    \begin{isabellebody}
+      \ \ \isacommand{next}\isamarkupfalse%
+      \isanewline \ \ \ \ \isacommand{let}\isamarkupfalse%
+      \ {\isacharquery}ns{\isacharprime}{\isacharprime}\
+      {\isacharequal}\ {\isachardoublequoteopen}remove{\isadigit{1}}\
+      {\isacharparenleft}length\ ns{\isacharparenright}\
+      {\isacharparenleft}n\ {\isacharhash}\
+      ns{\isacharprime}{\isacharparenright}{\isachardoublequoteclose}\isanewline
+      \ \ \ \ \isacommand{case}\isamarkupfalse%
+      \ True\isanewline \ \ \ \ \isacommand{hence}\isamarkupfalse%
+      \ {\isachardoublequoteopen}{\isacharparenleft}n\ {\isacharhash}\
+      ns{\isacharprime}{\isacharparenright}\ {\isasymsimeq}\ length\
+      ns\ {\isacharhash}\
+      {\isacharquery}ns{\isacharprime}{\isacharprime}{\isachardoublequoteclose}\isanewline
+      \ \ \ \ \ \ \isacommand{using}\isamarkupfalse%
+      \ perm{\isacharunderscore}remove\
+      \isacommand{by}\isamarkupfalse%
+      \ force\isanewline \ \ \ \ \isacommand{moreover}\isamarkupfalse%
+      \ \isacommand{have}\isamarkupfalse%
+      \ {\isachardoublequoteopen}length\ ns\ {\isasymnotin}\ set\
+      {\isacharquery}ns{\isacharprime}{\isacharprime}{\isachardoublequoteclose}\isanewline
+      \ \ \ \ \ \ \isacommand{using}\isamarkupfalse%
+      \ True\ Suc\ {\isacartoucheopen}ns\ {\isacharequal}\ n\
+      {\isacharhash}\ ns{\isacharprime}{\isacartoucheclose}\
+      \isacommand{by}\isamarkupfalse%
+      \ simp\isanewline \ \ \ \
+      \isacommand{ultimately}\isamarkupfalse%
+      \ \isacommand{show}\isamarkupfalse%
+      \ {\isacharquery}thesis\isanewline \ \ \ \ \ \
+      \isacommand{using}\isamarkupfalse%
+      \ {\isasymdagger}\ {\isacartoucheopen}ns\ {\isacharequal}\ n\
+      {\isacharhash}\ ns{\isacharprime}{\isacartoucheclose}\
+      \isacommand{by}\isamarkupfalse%
+      \ blast\ \ \isanewline \ \ \isacommand{qed}\isamarkupfalse%
+      \isanewline \isacommand{qed}\isamarkupfalse%
+    \end{isabellebody}
+  \end{tcolorbox}
+
+  \framebreak
+
+  Here \[ \Snippet{remove1}\] \ldots is akin to\ldots\\~\
+
+  \lstinline{Data.List.delete :: Eq a => a -> [a] -> [a]}
+
+\end{frame}
+
+\subsection{Main Proof}
+\begin{frame}[allowframebreaks]{\insertsubsectionhead}
+  \begin{tcolorbox}
+    \begin{isabellebody}
+      \isacommand{lemma}\isamarkupfalse%
+      \ pigeon{\isacharunderscore}hol{\isacharcolon}\isanewline \ \
+      \isakeyword{fixes}\ n\ {\isacharcolon}{\isacharcolon}\
+      nat\isanewline \ \ \isakeyword{fixes}\ ns\
+      {\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}nat\
+      list{\isachardoublequoteclose}\isanewline \ \
+      \isakeyword{assumes}\ {\isachardoublequoteopen}distinct\
+      {\isacharparenleft}n\ {\isacharhash}\
+      ns{\isacharparenright}{\isachardoublequoteclose}\isanewline \ \
+      \ \ \ \ \isakeyword{and}\
+      {\isachardoublequoteopen}{\isasymforall}\ n{\isacharprime}\
+      {\isasymin}\ set\ {\isacharparenleft}n\ {\isacharhash}\
+      ns{\isacharparenright}{\isachardot}\ {\isadigit{0}}\
+      {\isacharless}\
+      n{\isacharprime}{\isachardoublequoteclose}\isanewline \ \ \ \
+      \isakeyword{shows}\ {\isachardoublequoteopen}{\isasymexists}\ m\
+      {\isasymin}\ set\ {\isacharparenleft}n\ {\isacharhash}\
+      ns{\isacharparenright}{\isachardot}\ \isanewline \ \ \ \ \ \ \ \
+      \ \ \ \ \ length\ {\isacharparenleft}n\ {\isacharhash}\
+      ns{\isacharparenright}\ {\isasymle}\
+      m{\isachardoublequoteclose}\isanewline
+      \isacommand{proof}\isamarkupfalse%
+      \ {\isacharparenleft}cases\
+      {\isachardoublequoteopen}{\isasymforall}\ n{\isacharprime}\
+      {\isasymin}\ set\ {\isacharparenleft}n\ {\isacharhash}\
+      ns{\isacharparenright}{\isachardot}\ \isanewline \ \ \ \ \ \ \ \
+      \ \ \ \ \ \ \ \ n{\isacharprime}\ {\isasymle}\ length\
+      {\isacharparenleft}n\ {\isacharhash}\
+      ns{\isacharparenright}{\isachardoublequoteclose}{\isacharparenright}\isanewline
+      \ \ \isacommand{case}\isamarkupfalse%
+      \ False\isanewline \ \ \isacommand{then}\isamarkupfalse%
+      \ \isacommand{show}\isamarkupfalse%
+      \ {\isacharquery}thesis\isanewline \ \ \ \
+      \isacommand{using}\isamarkupfalse%
+      \ nat{\isacharunderscore}le{\isacharunderscore}linear\
+      \isacommand{by}\isamarkupfalse%
+      \ blast
+    \end{isabellebody}
+  \end{tcolorbox}
+  \framebreak
+  \begin{tcolorbox}
+    \begin{isabellebody}
+      \isacommand{next}\isamarkupfalse%
+      \isanewline \ \ \isacommand{case}\isamarkupfalse%
+      \ True\isanewline \ \ \isacommand{hence}\isamarkupfalse%
+      \ {\isachardoublequoteopen}{\isacharparenleft}n\ {\isacharhash}\
+      ns{\isacharparenright}\ {\isasymsimeq}\
+      {\isacharbrackleft}{\isadigit{1}}{\isachardot}{\isachardot}{\isacharless}length\
+      {\isacharparenleft}n\ {\isacharhash}\ ns{\isacharparenright}\
+      {\isacharplus}\
+      {\isadigit{1}}{\isacharbrackright}{\isachardoublequoteclose}\isanewline
+      \ \ \ \ \isacommand{using}\isamarkupfalse%
+      \ assms\
+      bounded{\isacharunderscore}above{\isacharunderscore}perm\
+      \isacommand{by}\isamarkupfalse%
+      \ metis\isanewline \ \ \isacommand{moreover}\isamarkupfalse%
+      \ \isacommand{have}\isamarkupfalse%
+      \ \isanewline \ \ \ \ {\isachardoublequoteopen}length\
+      {\isacharparenleft}n\ {\isacharhash}\ ns{\isacharparenright}\
+      \isanewline \ \ \ \ \ \ \ {\isasymin}\ set\
+      {\isacharbrackleft}{\isadigit{1}}{\isachardot}{\isachardot}{\isacharless}length\
+      {\isacharparenleft}n\ {\isacharhash}\ ns{\isacharparenright}\
+      {\isacharplus}\
+      {\isadigit{1}}{\isacharbrackright}{\isachardoublequoteclose}\isanewline
+      \ \ \ \ \isacommand{by}\isamarkupfalse%
+      \ {\isacharparenleft}induct\ ns{\isacharcomma}\
+      auto{\isacharparenright}\isanewline \ \
+      \isacommand{ultimately}\isamarkupfalse%
+      \ \isacommand{show}\isamarkupfalse%
+      \ {\isacharquery}thesis\isanewline \ \ \ \
+      \isacommand{using}\isamarkupfalse%
+      \ perm{\isacharunderscore}set{\isacharunderscore}eq\
+      \isacommand{by}\isamarkupfalse%
+      \ blast\isanewline \isacommand{qed}
+    \end{isabellebody}
+  \end{tcolorbox}
+
+\end{frame}
+
+\section{Bibliography}
+\begin{frame}{\insertsectionhead}
+  \setbeamerfont{bibliography item}{size=\tiny}
+  \setbeamerfont{bibliography entry author}{size=\tiny}
+  \setbeamerfont{bibliography entry title}{size=\tiny}
+  \setbeamerfont{bibliography entry location}{size=\tiny}
+  \setbeamerfont{bibliography entry note}{size=\tiny}
+  \bibliographystyle{siam}%
+  \bibliography{bibliography}
+\end{frame}
+
+\end{document}

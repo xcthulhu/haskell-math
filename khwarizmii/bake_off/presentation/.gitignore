@@ -1,0 +1,14 @@
+auto/                
+*.aux
+*.fdb_latexmk
+*.nav
+*.snm
+*.xdv
+generated/
+*.bbl
+*.fls
+*.out
+isabelle_docs/
+*.blg
+*.log
+*.toc

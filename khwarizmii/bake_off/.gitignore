@@ -1,0 +1,17 @@
+*.bak
+\#*\#
+*~
+generated/
+auto/
+
+*.bbl
+*.blg
+*.log
+auto/
+_region_.*
+*.aux
+*.fdb_latexmk
+*.fls
+*.out
+*.pdf
+*.toc
