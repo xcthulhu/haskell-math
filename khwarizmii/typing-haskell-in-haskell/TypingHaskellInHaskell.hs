@@ -578,7 +578,7 @@ tiBindGroup ce as (es,iss) =
      return (ps++concat qss, as''++as')
 
 tiSeq                  :: Infer bg [Assump] -> Infer [bg] [Assump]
-tiSeq _ti _ce _as []     = return ([],[])
+tiSeq _ti _ce _as []    = return ([],[])
 tiSeq ti ce as (bs:bss) = do (ps,as')  <- ti ce as bs
                              (qs,as'') <- tiSeq ti ce (as'++as) bss
                              return (ps++qs, as''++as')
