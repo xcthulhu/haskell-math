@@ -1,0 +1,12 @@
+*.bak
+\#*\#
+*~
+generated/
+
+*.bbl
+*.blg
+
+output/*
+!output/document.pdf
+
+.*.~undo-tree~

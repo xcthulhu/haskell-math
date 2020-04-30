@@ -13,12 +13,12 @@
 \setbeamertemplate{note page}[plain]
 \beamertemplatenavigationsymbolsempty
 
-% font
+% Font
 \RequirePackage{ marvosym }
-\setsansfont[ItalicFont={Fira Sans Light Italic},
-             BoldFont={Fira Sans},
-             BoldItalicFont={Fira Sans Italic}]
-                {Fira Sans Light}
+%\setsansfont[ItalicFont={Fira Sans Light Italic},
+%             BoldFont={Fira Sans},
+%             BoldItalicFont={Fira Sans Italic}]
+%                {Fira Sans Light}
 
 \setmonofont[Contextuals={Alternate}]{Fira Code}
 
@@ -52,6 +52,11 @@
 \setbeamertemplate{itemize subitem}{{\textendash}}
 \setbeamerfont{itemize/enumerate subbody}{size=\footnotesize}
 \setbeamerfont{itemize/enumerate subitem}{size=\footnotesize}
+\setbeamercolor{block title}{use=structure,fg=foreground,bg=background}
+\setbeamercolor{block body}{use=structure,fg=foreground,bg=background}
+\addtobeamertemplate{qed symbol}{%
+    \color{foreground}%
+}
 
 % lstlisting
 \RequirePackage{listings}
@@ -72,13 +77,22 @@
     basicstyle=\ttfamily,
     morekeywords={Data}
 }
+\lstMakeShortInline[columns=fixed]|
 
 % hyperlinks
 \hypersetup{
-  colorlinks=false,             % hyperlinks will be black
-  linkbordercolor=white         % hyperlink borders will be red
+  colorlinks,             % hyperlinks will be black
+  linkcolor=title,
+  urlcolor=[rgb]{0.25,0.25,1}
+  %linkbordercolor=white         % hyperlink borders will be red
   %% pdfborderstyle={/S/U/W} % border style will be underline of width 1pt
 }
+
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remarks}[theorem]{Remarks}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
 
 % some macros
 \newcommand{\subt}[1]{{\footnotesize \color{subtitle} {#1}}}

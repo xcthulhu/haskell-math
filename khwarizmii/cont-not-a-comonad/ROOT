@@ -1,0 +1,8 @@
+session Minimal_Logic = "HOL" +
+  options [document = pdf, document_output = "output"]
+  theories
+    "Logic/Intuitionistic/Minimal/Combinators"
+    "Logic/Intuitionistic/Minimal/Kripke_Semantics"
+  document_files
+    "root.tex"
+    "root.bib"

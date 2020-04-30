@@ -1,0 +1,8 @@
+session "LaTeX_Snippets" = "HOL" +
+   options [document = "pdf",
+            document_output = "generated",
+            show_question_marks = false]
+   theories
+    "Snippets"
+   document_files
+     build

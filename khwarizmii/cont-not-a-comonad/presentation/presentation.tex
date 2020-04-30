@@ -1,0 +1,536 @@
+% -*- mode: latex-mode; -*-
+
+\documentclass{beamer}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Source: https://github.com/pblottiere/dark-beamer-theme %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usetheme{dbt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Source: https://tex.stackexchange.com/a/74127 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\usepackage{tcolorbox}
+
+\tcbset{%
+  colback=black!95,%
+  colupper=white,%
+  colframe=white!40!black,%
+  sharp corners%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Deduction Rule Formatting %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{mathpartir}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Source: https://isabelle.in.tum.de/community/Generate_TeX_Snippets %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{generated/document/comment}%
+\usepackage{generated/document/isabelle}%
+\usepackage{generated/document/isabellesym}%
+\usepackage{generated/document/isabelletags}%
+\usepackage{ifthen}%
+
+\newcommand{\DefineSnippet}[2]{%
+  \expandafter\newcommand\csname snippet--#1\endcsname{ \kern-1ex #2
+    \kern-1.5ex }}
+
+\newcommand{\Snippet}[1]{%
+  \ifcsname snippet--#1\endcsname {\csname snippet--#1\endcsname}
+  \else +++++++ERROR: Snippet ``#1'' not defined+++++++ \fi}
+
+\input{generated/snippets}
+
+% https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/Isabelle2017/doc/sugar.pdf
+\usepackage{mathpartir}
+
+%%%%%%%%
+% Main %
+%%%%%%%%
+
+\title{\texttt{Cont r} is not a Comonad} \author{Matthew Doty} \date{}
+
+\begin{document}
+
+{\setbeamertemplate{footline}{} \frame{\titlepage}}
+
+
+\hypersetup{colorlinks=false}
+
+\section*{Outline}%
+
+\hypersetup{colorlinks}
+
+\begin{frame}[shrink=35]{\insertsectionhead}%
+  \ \
+  \tableofcontents %
+\end{frame}
+
+\section{Stuff You Can't Program}
+\begin{frame}[plain]
+  \vfill \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+    \usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+\end{frame}
+
+\subsection{Halting Problem}
+\begin{frame}[plain]{\insertsectionhead\ \textemdash\
+    \insertsubsectionhead}
+
+  The most famous negative result in computer science is due to Alan
+  Turing \cite{turingComputableNumbersApplication1937}\\~\\
+
+  \begin{proposition}
+    There is no Turing machine that can compute for all programs
+    $\ulcorner T\, \urcorner$ if they will halt or not on $x$.\\~\\
+  \end{proposition}
+
+  $\ulcorner T\, \urcorner$ is the code for Turing machine $T$
+  given a \emph{universal} Turing machine $U$
+
+\end{frame}
+
+\subsection{Other Impossible Tasks}
+\begin{frame}[plain]{\insertsectionhead\ \textemdash\
+    \insertsubsectionhead}
+
+  \begin{description}
+  \item[G\"odel] Can't compute if there's a proof in Peano arithmetic
+    for an arbitrary $\phi$
+    \cite{goedelUeberFormalUnentscheidbare1931}
+  \item[Kolmogorov] Can't make the perfect compression algorithm
+    \cite{kolmogorovThreeApproachesQuantitative1968}
+  \item[Soare] Can't compute if a program halts on every input
+    \cite{soareTuringComputabilityTheory2016}
+  \end{description}
+
+\end{frame}
+
+\subsection{Ever More Impossible}
+\begin{frame}[allowframebreaks]{\insertsectionhead\ \textemdash\
+    \insertsubsectionhead}
+
+  If you \emph{could} compute for any program if would halt on an
+  input, you could compute for any $\phi$ if it was provable in
+  arithmetic or not.\\~\\
+
+  However, you could not compute if a program halts \emph{on every
+    input}.  This is even more \emph{uncomputable}!\\~\\
+
+\framebreak
+
+  The relation ``\emph{if I could compute $x$, I could compute $y$}''
+  (called \emph{Turing reducibility}) creates classes of algorithms
+  like complexity theory.\\~\\
+
+  For every problem $P$, we can make a $Q$ where even if we could
+  solve $P$ then $Q$ would \emph{still} be impossible.\\~\\
+
+  There are an infinite number of seperable classes in higher
+  complexity theory under Turing reducibility.
+
+\end{frame}
+
+\subsection{Another \emph{Type} of Impossibility}
+\begin{frame}[plain]{\insertsectionhead\ \textemdash\
+    \insertsubsectionhead}
+
+  All the impossibility theorems mentioned involve some kind of \emph{diagonal argument} or another.\\~\\
+
+  Types were invented by Bertrand Russell to avoid the paradox he
+  uncovered in Frege's \emph{Die Grundlagen der Arithmetik} \cite{russelLetterFrege1981}. \\~\\
+
+  A century later we can use types as an alternate way of proving
+  programs don't exist.
+\end{frame}
+
+\section{The Continuation Monad}
+\begin{frame}[plain]
+  \vfill \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+    \usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+\end{frame}
+
+\subsection{Definition}
+\begin{frame}[fragile]{\insertsectionhead\ \textemdash\
+    \insertsubsectionhead}
+  \begin{lstlisting}
+newtype Cont r a
+  = Cont {runCont :: (a -> r) -> r}
+
+instance Monad (Cont r) where
+  return x = Cont ($ x)
+  s >>= f =
+    Cont $ \c ->
+      runCont s $ \x ->
+        runCont (f x) c
+  \end{lstlisting}
+\end{frame}
+
+\subsection{Example Usage}
+\begin{frame}[fragile]{\insertsectionhead\ \textemdash\
+    \insertsubsectionhead}
+  |Cont r| can be used for a non-local exit \\~\\
+
+  This is called an \emph{escape continuation}; see the \href{https://hackage.haskell.org/package/mtl-2.2.2/docs/Control-Monad-Cont.html\#g:5}{\texttt{mtl}} package for more details\\~\\
+
+\begin{lstlisting}
+whatsYourName :: String -> String
+whatsYourName name = (`runCont` id) $ do
+  response <- callCC $ \exit -> do
+    when (null name) $
+      exit "Must have a name!"
+    return $ "Welcome, " ++ name ++ "!"
+  return response
+\end{lstlisting}
+\end{frame}
+
+\section{Combinatory Logic}
+\begin{frame}[plain]
+  \vfill \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+    \usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+\end{frame}
+
+\subsection{History}
+\begin{frame}[plain]{\insertsectionhead\ \textemdash\
+    \insertsubsectionhead}
+Topic of Haskell Curry's PhD thesis in 1930 \cite{curryGrundlagenKombinatorischenLogik1930}\\~\\
+
+Based on earlier work by Moses Sch\"onfinkel in 1924 \cite{schoenfinkelUeberBausteineMathematischen1924}\\~\\
+
+The presentation here has been formalized in Isabelle/HOL
+\end{frame}
+
+\subsection{Syntax}
+\begin{frame}[plain]{\insertsectionhead\ \textemdash\
+    \insertsubsectionhead}
+  \Snippet{SKCombDef}
+\end{frame}
+
+\subsection{Simple Typing}
+\begin{frame}[fragile]{\insertsectionhead\ \textemdash\
+    \insertsubsectionhead}
+  Simple typing is achieved for the pure $S$ and $K$ combinators using
+  the following inductively defined predicate
+  \Snippet{simple_type_predicate}\\~\\
+
+  \begin{center}
+    \Snippet{K_type}\\[2ex]
+
+    \Snippet{S_type}\\[4ex]
+
+    \Snippet{Application_type}
+  \end{center}
+\end{frame}
+
+\subsection{Lambda-Abstraction}
+\begin{frame}[allowframebreaks]{\insertsectionhead\ \textemdash\
+    \insertsubsectionhead}
+  The $\lambda$-calculus can be embedded in combinatory logic.
+
+  The embedding here is due to David Turner
+  \cite{turnerAnotherAlgorithmBracket1979}. \\~\\
+
+  \begin{center}
+    \Snippet{free_variables}
+  \end{center}
+
+  \framebreak
+
+  \begin{center}
+    \Snippet{Turner_Abstraction}
+  \end{center}
+
+\end{frame}
+
+\section{Kripke Semantics}
+\begin{frame}[plain]
+  \vfill \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+    \usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+\end{frame}
+
+\subsection{History}
+\begin{frame}[allowframebreaks]{\insertsectionhead\ \textemdash\
+    \insertsubsectionhead}
+
+\emph{Kripke Semantics} refers to possible world semantics given a \emph{transition} relation.\\~\\
+
+Credited to the mathematician Saul Kripke, who invented these models for logic while in high school in 1959 \cite{kripkeCompletenessTheoremModal1959}\\~\\
+
+\framebreak
+
+In the 60s \& 70s, Hoare \cite{hoareAxiomaticBasisComputer1969} and Pratt \cite{prattSemanticalConsiderationsFloydHoare1976} adapted Kripke models to \emph{Labeled Transition Systems} in order to generalize Kleene's \emph{regular expressions}. \\~\\
+
+Also in the 70s, Pnueli used Kripke semantics for \emph{Linear Temporal Logic} (LTL), which he proposed for formal verification \cite{pnueliTemporalLogicPrograms1977}.  This inspired Leslie Lamport to ultimately create \emph{TLA+} \cite{lamportSpecifyingConcurrentSystems1999}. \\~\\
+
+\framebreak
+
+We are going to use Kripke semantics for \emph{intuitionistic logic}. This is the logic of simple types according to the Curry-Howard correspondence.
+
+In a sense, Kripke semantics can be seen as the \emph{dual} to Combinatory logic.
+
+\end{frame}
+
+\subsection{Data Structure}
+\begin{frame}[plain]{\insertsectionhead\ \textemdash\
+    \insertsubsectionhead}
+  \begin{center}
+  \Snippet{Kripke_Model}
+  \end{center}
+\end{frame}
+
+\subsection{Model Theory}
+\begin{frame}[plain]{\insertsectionhead\ \textemdash\
+    \insertsubsectionhead}
+  Define the \emph{Tarski Truth Predicate} \Snippet{Tarski_Truth} inductively as follows:\\~\\
+
+  \begin{center}
+    \Snippet{Intuitionistic_Kripke_Semantics_1_lhs}\\[1ex]
+    \Snippet{eq}\\[1ex]
+    \Snippet{Intuitionistic_Kripke_Semantics_1_rhs}\\~\\
+  \end{center}
+
+  \begin{center}
+    \Snippet{Intuitionistic_Kripke_Semantics_2_lhs}\\[1ex]
+    \Snippet{eq}\\[1ex]
+    \Snippet{Intuitionistic_Kripke_Semantics_2_rhs}\\~\\
+  \end{center}
+
+  Here \Snippet{Reflexive_Transitive_Closure} is the \emph{reflexive, transitive closure} of the relation \Snippet{Relation} for \Snippet{Model}
+\end{frame}
+
+\subsection{Properties}
+\begin{frame}[allowframebreaks]{\insertsectionhead\ \textemdash\
+    \insertsubsectionhead}
+\emph{Monotony:} \\~\\
+\begin{center}
+\Snippet{Kripke_model_monotone}\\~\\
+\end{center}
+
+\emph{Proof Sketch}: Use induction on \Snippet{phi} while allowing \Snippet{y} to be free.
+
+\framebreak
+
+Monotony, as well as reflexivity and transitivity of \Snippet{Reflexive_Transitive_Closure} give us three other derived rules:
+
+  \begin{center}
+    \Snippet{Kripke_models_K}\\[2ex]
+
+    \Snippet{Kripke_models_S}\\[4ex]
+
+    \Snippet{Kripke_models_Modus_Ponens}\\~\\
+  \end{center}
+
+These reflect the Combinatory logic typing rules {\sc K\_type}, {\sc S\_type} and {\sc Application\_type} respectively
+
+\end{frame}
+
+\subsection{Soundness}
+\begin{frame}[plain]{\insertsectionhead\ \textemdash\
+    \insertsubsectionhead}
+  \begin{center}
+  \Snippet{Combinator_Typing_Kripke_Soundness_alt}\\~\\
+  \end{center}
+
+The other direction (called \emph{completeness}) also holds\\~\\
+
+\ldots But the proof is complicated\\~\\
+
+\end{frame}
+
+\subsection{Comonad Refresher}
+\begin{frame}[allowframebreaks,fragile]{\insertsectionhead\ \textemdash\
+    \insertsubsectionhead}
+\begin{lstlisting}
+class Comonad w where
+  extract :: w a -> a
+  duplicate :: w a -> w (w a)
+\end{lstlisting}
+
+\framebreak
+
+Comonads obey the laws:\\~\\
+
+\begin{lstlisting}
+extract      . duplicate = id
+fmap extract . duplicate = id
+
+extract . fmap f
+  = f . extract
+
+duplicate . duplicate
+  = fmap duplicate . duplicate
+\end{lstlisting}
+
+\framebreak
+
+|Cont r| cannot be a monad, because we will show it is impossible to write
+
+\begin{center}
+|extract :: ((a -> r) -> r) -> a|
+\end{center}
+
+\end{frame}
+
+\subsection{\texttt{extract} Counter Example}
+\begin{frame}[allowframebreaks]{\insertsectionhead\ \textemdash\
+    \insertsubsectionhead}
+  \begin{lemma}
+  Let \Snippet{Model} be
+
+  \begin{center}
+  \Snippet{Kripke_Cont_Monad_prem_3}
+  \end{center}
+
+  where \Snippet{Kripke_Cont_Monad_prem_1} and \Snippet{Kripke_Cont_Monad_prem_2}\\[1ex]
+
+  then
+  \begin{center}
+    \Snippet{Kripke_Cont_Monad_concl}
+  \end{center}
+  \end{lemma}
+
+\framebreak
+
+Here's a diagram of what's going on in this model:\\~\\
+
+\begin{center}
+\includegraphics[width=0.3\textwidth, angle=0]{figs/kripke_model_counter_example.pdf}
+\end{center}
+
+\framebreak
+
+\emph{Proof.}\\~\\
+
+  First observe that \Snippet{Kripke_Cont_Monad_1_a} and
+  \Snippet{Kripke_Cont_Monad_1_b}. \\~\\
+
+  Since \Snippet{Kripke_Cont_Monad_1_c}, then
+  \begin{center}
+    \Snippet{Kripke_Cont_Monad_1} \\~\\
+  \end{center}
+
+  \framebreak
+
+  In order to show \Snippet{Kripke_Cont_Monad_2}, we must find a \Snippet{x} such that:\\~\\
+  \begin{enumerate}
+    \item \Snippet{Kripke_Cont_Monad_2_a}
+    \item \Snippet{Kripke_Cont_Monad_2_b}
+    \item \Snippet{Kripke_Cont_Monad_2_c}
+  \end{enumerate}
+
+   We can see that \Snippet{Kripke_Cont_Monad_2_d} works.\\~\\
+
+   Since all we have is \Snippet{a} and \Snippet{b} to worry about, we have:
+
+\begin{center}
+  \Snippet{Kripke_Cont_Monad_2_e}
+\end{center}
+
+Hence \Snippet{Kripke_Cont_Monad_2_f} vacuously.
+
+\framebreak
+
+But since \Snippet{Kripke_Cont_Monad_3}, then by modus ponens we have our result!
+
+\hfill\qed
+
+\end{frame}
+
+\subsection{No Combinator For \texttt{extract}}
+\begin{frame}[plain]{\insertsectionhead\ \textemdash\
+    \insertsubsectionhead}
+By the soundness result previously established\\~\\
+  \begin{center}
+  \Snippet{Combinator_Typing_Kripke_Soundness_alt}\\~\\
+  \end{center}
+
+And from the lemma we just proved, if \Snippet{no_extract_prem} then \\~\\
+
+\begin{center}
+  \Snippet{no_extract_concl}
+\end{center}
+
+\end{frame}
+
+
+\section{Follow Up}
+\begin{frame}[plain]
+  \vfill \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+    \usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+\end{frame}
+
+\subsection{\texttt{ContT} Monad Transformer}
+\begin{frame}[allowframebreaks,fragile]{\insertsectionhead\ \textemdash\
+    \insertsubsectionhead}
+
+\begin{lstlisting}
+newtype ContT r m a
+  = ContT {runContT :: (a -> m r) -> m r}
+
+type Cont r = ContT r Identity
+\end{lstlisting}
+
+\framebreak
+
+|ContT| is thought to \emph{not be} a functor in the category of monads\\~\\
+
+\begin{center}
+\emph{Can we prove this?}\\~\\
+\end{center}
+
+\framebreak
+
+That is, is there a monad |m| and a |c| such that there is no function:
+
+\begin{lstlisting}
+hoist ::
+  forall a b.
+  (m a -> m b) ->
+  (ContT c m a -> ContT c m b)
+\end{lstlisting}
+
+which obeys these laws:
+
+\begin{lstlisting}
+hoist (f . g) = hoist f . hoist g
+hoist id = id
+\end{lstlisting}
+
+\begin{center}?\end{center}
+
+\end{frame}
+
+
+\section{Bibliography}
+\begin{frame}{\insertsectionhead}
+  \setbeamerfont{bibliography item}{size=\tiny}
+  \setbeamerfont{bibliography entry author}{size=\tiny}
+  \setbeamerfont{bibliography entry title}{size=\tiny}
+  \setbeamerfont{bibliography entry location}{size=\tiny}
+  \setbeamerfont{bibliography entry note}{size=\tiny}
+  \bibliographystyle{siam}%
+  \bibliography{bibliography}
+\end{frame}
+
+\end{document}
