@@ -371,9 +371,9 @@ list of positive integers. \\~\
 
 \framebreak
 
-For the inductive step, if \(|L| = n + 1\) then
+For the inductive step, if \(|L| = k + 1\) then
 \(L = \{n\} \cup L^\prime\) for some positive \(n\) and \(L^\prime\)
-where \(|L^\prime| = n\). \\~\
+where \(|L^\prime| = k\). \\~\
 
 
 If \(|L| \not\in L^\prime\) then for all \(m \in L^\prime\) we have
@@ -382,14 +382,14 @@ If \(|L| \not\in L^\prime\) then for all \(m \in L^\prime\) we have
 hypothesis. It must be then \(n = |L|\) since the elements are
 distinct, and the result is obtained.\\~\
 
-Otherwise if \(|L| \in L^\prime\), then \(n^\prime <|L|\).  However we
-can rewrite \(L\) as:
+Otherwise if \(|L| \in L^\prime\), then \(n <|L|\).  However we can
+rewrite \(L\) as:
 
-\[L = (\{n^\prime\} \cup (L^\prime - \{|L|\})) \cup \{|L|\}. \]
+\[L = (\{n\} \cup (L^\prime - \{|L|\})) \cup \{|L|\}. \]
 
 By the inductive hypothesis
-\(\{n^\prime\} \cup (L^\prime - \{|L|\}) = \{1,2,\ldots,
-|L^\prime|\}\), so the result again obtains.\\~\
+\(\{n\} \cup (L^\prime - \{|L|\}) = \{1,2,\ldots, |L^\prime|\}\), so
+the result again obtains.\\~\
 
 \emph{Q.E.D.}
 \end{frame}

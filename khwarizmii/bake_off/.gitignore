@@ -13,5 +13,4 @@ _region_.*
 *.fdb_latexmk
 *.fls
 *.out
-*.pdf
 *.toc
